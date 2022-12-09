@@ -1,12 +1,11 @@
-import CatalogBlock from './components/CatalogBlock/CatalogBlock'
+import { Outlet } from 'react-router-dom'
 import Header from './components/Header/Header'
 
 const App = () => (
   <>
     <Header />
-    <CatalogBlock />
+    <Outlet />
   </>
-
 )
 
 export default App

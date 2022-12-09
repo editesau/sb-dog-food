@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom'
+
 const Logo = () => (
   <div className="navbar-brand">
-    <h2>Dog food</h2>
+    <Link to="/"><h2>Dog food</h2></Link>
   </div>
 )
 
