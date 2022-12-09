@@ -1,0 +1,12 @@
+.headerIcons {
+  display: flex;
+  gap: 1rem;
+}
+
+.headerIcons i {
+  cursor: pointer;
+}
+
+.headerIcons i:hover {
+  color: red;
+}
