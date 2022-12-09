@@ -1,7 +1,12 @@
+import CatalogBlock from './components/CatalogBlock/CatalogBlock'
 import Header from './components/Header/Header'
 
 const App = () => (
-  <Header />
+  <>
+    <Header />
+    <CatalogBlock />
+  </>
+
 )
 
 export default App
