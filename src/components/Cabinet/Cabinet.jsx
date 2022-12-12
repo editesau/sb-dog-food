@@ -19,8 +19,14 @@ const Cabinet = () => {
     getInfo()
   }, [])
 
+  const logout = () => {
+    window.localStorage.clear()
+    navigate('/signin')
+  }
+
   return (
-    <div className="container d-flex justify-content-center mt-3">
+    <div className="container my-3 d-flex flex-column align-items-center">
+      <h2>User info</h2>
       <div className="card mb-3" style={{ 'max-width': '540px' }}>
         <div className="row g-0">
           <div className="col-md-4">
@@ -35,7 +41,14 @@ const Cabinet = () => {
           </div>
         </div>
       </div>
+      <div className="cabinet-buttons d-flex flex-column gap-2">
+        <button type="button" className="btn btn-success">Change password</button>
+        <button type="button" className="btn btn-success">Change info</button>
+        <button type="button" onClick={logout} className="btn btn-danger">Logout</button>
+      </div>
+
     </div>
+
   )
 }
 
