@@ -1,0 +1,14 @@
+.tag {
+  padding: 2px;
+  margin: 5px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  color: white;
+  background-color: brown;
+}
+.sale {
+  background-color: red;
+}
+.new {
+  background-color: blue;
+}

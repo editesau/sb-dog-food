@@ -6,8 +6,7 @@ import {
 } from 'react-router-dom'
 import App from './App'
 import CatalogBlock from './components/CatalogBlock/CatalogBlock'
-import SignInForm from './components/SignInForm/SignInForm'
-import SignUpForm from './components/SignUpForm/SignUpForm'
+import SignForm from './components/SignForm/SignForm'
 import Cabinet from './components/Cabinet/Cabinet'
 import './index.css'
 
@@ -22,11 +21,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'signin',
-        element: <SignInForm />,
+        element: <SignForm />,
       },
       {
         path: 'signup',
-        element: <SignUpForm />,
+        element: <SignForm signup />,
       },
       {
         path: 'cabinet',
