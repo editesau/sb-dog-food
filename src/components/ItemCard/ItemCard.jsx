@@ -8,31 +8,34 @@ const ItemCard = ({ product }) => (
     <div className="card-body d-flex flex-column justify-content-between">
       <h6 className="card-title">{product.name}</h6>
       {product.wight && (
-      <p className="card-subtitle">
-        Capacity:
-        {' '}
-        {product.wight}
-      </p>
+        <p className="card-subtitle">
+          Capacity:
+          {' '}
+          {product.wight}
+        </p>
       )}
       <div className="d-flex justify-content-between">
-        <span className={`${product.discount && itemCardStyles.itemDiscount} card-text`}>
+        <span
+          className={`${
+            product.discount && itemCardStyles.itemDiscount
+          } card-text`}
+        >
           {product.price}
           {' '}
           ₽
         </span>
-        { product.discount !== 0 && (
-        <span className={itemCardStyles.sale}>
-          {Math.round(product.price * ((100 - product.discount) / 100))}
-          {' '}
-          ₽
-        </span>
+        {product.discount !== 0 && (
+          <span className={itemCardStyles.sale}>
+            {Math.round(product.price * ((100 - product.discount) / 100))}
+            {' '}
+            ₽
+          </span>
         )}
       </div>
     </div>
     <div className="card-footer d-flex justify-content-center">
       <button type="button">Cart</button>
     </div>
-
   </div>
 )
 

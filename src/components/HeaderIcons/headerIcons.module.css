@@ -4,7 +4,9 @@
 }
 
 .headerIcons i {
+  color: black;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .headerIcons i:hover {
