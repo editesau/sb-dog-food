@@ -15,7 +15,7 @@ const ItemCard = ({ product }) => (
         </span>
         { product.discount !== 0 && (
         <span className={itemCardStyles.sale}>
-          {product.price * ((100 - product.discount) / 100)}
+          {Math.round(product.price * ((100 - product.discount) / 100))}
           {' '}
           ₽
         </span>
