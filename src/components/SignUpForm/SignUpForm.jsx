@@ -28,7 +28,7 @@ const SignUpForm = () => {
     console.log(data)
   }
   return (
-    <div className="container">
+    <div className="container d-flex justify-content-center mt-3">
       <form>
         <h1>Sign Up</h1>
         <label htmlFor="signUpEmail" className="form-label">Email</label>
@@ -37,7 +37,7 @@ const SignUpForm = () => {
         <input type="password" id="signUpPassword" className="form-control" value={formData.password} onChange={formChangeHandler} />
         <label htmlFor="signUpGroup" className="form-label">Group</label>
         <input type="text" id="signUpGroup" className="form-control" value={formData.group} onChange={formChangeHandler} />
-        <button onClick={signUp} className="form-control btn btn-primary mt-2" type="submit">Login</button>
+        <button onClick={signUp} className="form-control btn btn-primary mt-2" type="submit">Sign Up</button>
       </form>
     </div>
   )

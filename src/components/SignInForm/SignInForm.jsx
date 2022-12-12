@@ -5,7 +5,13 @@ import api from '../../tools/Api'
 
 const SignInForm = () => {
   const [formData, setFormData] = useState({ email: '', password: '' })
+  const [isError, setIsError] = useState({ email: false, password: false })
+  const [error, setError] = useState('')
+
+  const navigate = useNavigate()
+
   const formChangeHandler = (event) => {
+    setIsError({ email: false, password: false })
     switch (event.target.id) {
       case 'signInEmail':
         setFormData((prev) => ({ ...prev, email: event.target.value }))
@@ -18,7 +24,6 @@ const SignInForm = () => {
     }
   }
 
-  const navigate = useNavigate()
   const signIn = async (event) => {
     event.preventDefault()
     const response = await api.signIn(formData)
@@ -27,29 +32,27 @@ const SignInForm = () => {
     switch (response.status) {
       case 200:
         window.localStorage.setItem('authToken', data.token)
-        navigate('/catalog')
+        navigate('/')
         break
       case 400:
-        console.log(data.message)
-        break
       case 401:
-        console.log('Incorrect password')
-        break
       case 404:
-        console.log('User not found')
+        setError(data.message)
+        setIsError({ email: true, password: true })
         break
       default:
         break
     }
   }
   return (
-    <div className="container">
-      <form className="form">
+    <div className="container d-flex justify-content-center mt-3">
+      <form>
         <h1>Login</h1>
         <label htmlFor="signInEmail" className="form-label">Email</label>
-        <input type="email" id="signInEmail" className="form-control" value={formData.email} onChange={formChangeHandler} />
+        <input type="email" id="signInEmail" className={`form-control ${isError.email && 'is-invalid'}`} value={formData.email} onChange={formChangeHandler} />
         <label htmlFor="signInPassword" className="form-label">Password</label>
-        <input type="password" id="signInPassword" className="form-control" value={formData.password} onChange={formChangeHandler} />
+        <input type="password" id="signInPassword" className={`form-control ${isError.password && 'is-invalid'}`} value={formData.password} onChange={formChangeHandler} />
+        <div className="invalid-feedback">{error}</div>
         <button onClick={signIn} className="form-control btn btn-primary mt-2" type="submit">Login</button>
         <hr />
         <span>Not registered yet?</span>

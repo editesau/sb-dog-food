@@ -8,6 +8,7 @@ import App from './App'
 import CatalogBlock from './components/CatalogBlock/CatalogBlock'
 import SignInForm from './components/SignInForm/SignInForm'
 import SignUpForm from './components/SignUpForm/SignUpForm'
+import Cabinet from './components/Cabinet/Cabinet'
 import './index.css'
 
 const router = createBrowserRouter([
@@ -20,16 +21,16 @@ const router = createBrowserRouter([
         element: <CatalogBlock />,
       },
       {
-        path: 'catalog',
-        element: <CatalogBlock />,
-      },
-      {
         path: 'signin',
         element: <SignInForm />,
       },
       {
         path: 'signup',
         element: <SignUpForm />,
+      },
+      {
+        path: 'cabinet',
+        element: <Cabinet />,
       },
     ],
   },
