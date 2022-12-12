@@ -1,11 +1,12 @@
 .itemCard {
   width: 15rem;
+  height: 25rem;
 }
 
 .itemCard img {
   object-fit: cover;
   width: 100%;
-  height: 15vw;
+  height: 20vh;
 }
 
 .itemCard button {

@@ -5,8 +5,15 @@ const ItemCard = ({ product }) => (
   <div className={`${itemCardStyles.itemCard} card`}>
     <ItemTagsHolder tags={product.tags} />
     <img src={product.pictures} className="card-img-top" alt="..." />
-    <div className="card-body">
+    <div className="card-body d-flex flex-column justify-content-between">
       <h6 className="card-title">{product.name}</h6>
+      {product.wight && (
+      <p className="card-subtitle">
+        Capacity:
+        {' '}
+        {product.wight}
+      </p>
+      )}
       <div className="d-flex justify-content-between">
         <span className={`${product.discount && itemCardStyles.itemDiscount} card-text`}>
           {product.price}
@@ -21,9 +28,11 @@ const ItemCard = ({ product }) => (
         </span>
         )}
       </div>
-      <hr />
+    </div>
+    <div className="card-footer d-flex justify-content-center">
       <button type="button">Cart</button>
     </div>
+
   </div>
 )
 
