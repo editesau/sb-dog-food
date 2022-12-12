@@ -41,12 +41,6 @@ class Api {
       return e.message
     }
   }
-
-  // async getUserInfo(token) {
-  //   try {
-  //     return await fetch (`${this.baseUrl}/`)
-  //   }
-  // }
 }
 
 const api = new Api('https://api.react-learning.ru')
