@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-// import { useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
+// import { useEffect, useState } from 'react'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import ItemCard from '../ItemCard/ItemCard'
@@ -21,14 +21,23 @@ const CatalogBlock = () => {
   //   getProducts()
   // }, [])
 
-  if (!window.localStorage.getItem('authToken')) return <Navigate to="/" />
+  if (!window.localStorage.getItem('authToken')) return <Navigate to="/signin" />
 
-  const query = useQuery({ queryKey: [ITEMS_QUERY_KEY], queryFn: api.getAllProducts })
+  const { isLoading, data } = useQuery({
+    queryKey: [ITEMS_QUERY_KEY],
+    queryFn: async () => {
+      const response = await api.getAllProducts()
+      const productsData = await response.json()
+      return productsData
+    },
+  })
+
+  if (isLoading) return 'Loading products'
 
   return (
     <div className="catalog-block">
       <div className="container d-flex flex-wrap gap-3 my-3 justify-content-center">
-        {query.data?.map((product) => product.available
+        {data.products.map((product) => product.available
         // eslint-disable-next-line no-underscore-dangle
         && <ItemCard key={product._id} product={product} />)}
       </div>
