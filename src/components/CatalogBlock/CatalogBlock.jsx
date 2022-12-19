@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import ItemCard from '../ItemCard/ItemCard'
+import Loader from '../Loader/Loader'
 
 const CatalogBlock = () => {
   // const navigate = useNavigate()
@@ -23,7 +24,7 @@ const CatalogBlock = () => {
 
   if (!window.localStorage.getItem('authToken')) return <Navigate to="/signin" />
 
-  const { isLoading, data } = useQuery({
+  const { isLoading, data, isError } = useQuery({
     queryKey: [ITEMS_QUERY_KEY],
     queryFn: async () => {
       const response = await api.getAllProducts()
@@ -32,7 +33,8 @@ const CatalogBlock = () => {
     },
   })
 
-  if (isLoading) return 'Loading products'
+  if (isLoading) return <Loader />
+  if (isError) return 'Something went wrong'
 
   return (
     <div className="catalog-block">
