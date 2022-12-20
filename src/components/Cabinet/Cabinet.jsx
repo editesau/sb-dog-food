@@ -1,28 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import api from '../../tools/Api'
+import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
+import Loader from '../Loader/Loader'
 
 const Cabinet = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState({})
 
-  useEffect(() => {
-    if (!window.localStorage.getItem('authToken')) navigate('/signin')
-
-    const getInfo = async () => {
+  const { isLoading, data: user } = useQuery({
+    queryKey: [USER_INFO_QUERY_KEY],
+    queryFn: async () => {
       const response = await api.getUserInfo()
-      const responseData = await response.json()
-      setUser(responseData)
-      console.log(responseData)
-    }
-
-    getInfo()
-  }, [])
+      const userData = response.json()
+      return userData
+    },
+  })
 
   const logout = () => {
     window.localStorage.clear()
     navigate('/signin')
   }
+
+  if (isLoading) return <Loader />
 
   return (
     <div className="container my-3 d-flex flex-column align-items-center">
