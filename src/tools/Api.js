@@ -27,18 +27,35 @@ class Api {
     const group = window.localStorage.getItem('groupId')
     const token = window.localStorage.getItem('authToken')
     try {
-      return await fetch(`${this.baseUrl}/v2/${group}/users/me`, { method: 'GET', headers: { ...this.headers, authorization: `Bearer ${token}` } })
+      const response = await fetch(`${this.baseUrl}/v2/${group}/users/me`, { method: 'GET', headers: { ...this.headers, authorization: `Bearer ${token}` } })
+      switch (response.status) {
+        case 200:
+          return await response.json()
+        case 401:
+          throw new Error({ status: 401, message: 'Authorization required!' })
+        default:
+          throw new Error({ status: 0, message: 'Something went wrong' })
+      }
     } catch (e) {
-      return e.message
+      console.log(e)
+      throw new Error({ status: e.status, message: e.message })
     }
   }
 
   async getAllProducts() {
     const token = window.localStorage.getItem('authToken')
     try {
-      return await fetch(`${this.baseUrl}/products`, { method: 'GET', headers: { ...this.headers, authorization: `Bearer ${token}` } })
+      const response = await fetch(`${this.baseUrl}/products`, { method: 'GET', headers: { ...this.headers, authorization: `Bearer ${token}` } })
+      switch (response.status) {
+        case 200:
+          return await response.json()
+        case 401:
+          throw Error('Authorization required!', { cause: 'Fetch return 401 status' })
+        default:
+          throw Error('Something went wrong', { cause: 'Unknown error' })
+      }
     } catch (e) {
-      return e.message
+      throw Error(e.message, { cause: 'Failed to fetch' })
     }
   }
 }

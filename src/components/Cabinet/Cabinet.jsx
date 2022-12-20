@@ -26,7 +26,7 @@ const Cabinet = () => {
   return (
     <div className="container my-3 d-flex flex-column align-items-center">
       <h2>User info</h2>
-      <div className="card mb-3" style={{ 'max-width': '540px' }}>
+      <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
             <img src={user.avatar} className="img-fluid rounded-start" alt="..." />

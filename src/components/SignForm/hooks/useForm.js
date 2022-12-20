@@ -1,3 +1,4 @@
+import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../../../tools/Api'
@@ -28,12 +29,13 @@ const useForm = (signup) => {
     }
   }
 
+  const { mutateAsync } = useMutation({ mutationFn: api.signUp })
   const signAction = async (event) => {
     event.preventDefault()
     let response = null
     let responseData = null
     if (signup) {
-      response = await api.signUp(formData)
+      response = await mutateAsync(formData)
     } else {
       const { email, password } = formData
       response = await api.signIn({ email, password })

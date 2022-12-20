@@ -22,19 +22,31 @@ const CatalogBlock = () => {
   //   getProducts()
   // }, [])
 
-  if (!window.localStorage.getItem('authToken')) return <Navigate to="/signin" />
+  // if (!window.localStorage.getItem('authToken')) return <Navigate to="/signin" />
 
-  const { isLoading, data, isError } = useQuery({
+  const {
+    isLoading, data, isError, error,
+  } = useQuery({
     queryKey: [ITEMS_QUERY_KEY],
     queryFn: async () => {
-      const response = await api.getAllProducts()
-      const productsData = await response.json()
-      return productsData
+      const products = await api.getAllProducts()
+      return products
     },
   })
 
   if (isLoading) return <Loader />
-  if (isError) return 'Something went wrong'
+  if (isError) {
+    return (
+      <p>
+        Status:
+        {' '}
+        {error.cause}
+        Message:
+        {' '}
+        {error.message}
+      </p>
+    )
+  }
 
   return (
     <div className="catalog-block">
