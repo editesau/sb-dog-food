@@ -4,7 +4,7 @@ import useForm from './hooks/useForm'
 
 const SignForm = ({ signup }) => {
   const {
-    formData, error, isError, signAction, formChangeHandler, isSignUpLoading, isSignInLoading,
+    formData, isError, signAction, formChangeHandler, isSignUpLoading, isSignInLoading,
   } = useForm(signup)
 
   return (
@@ -45,7 +45,6 @@ const SignForm = ({ signup }) => {
             />
           </>
         )}
-        <div className="invalid-feedback">{error}</div>
         <button
           onClick={signAction}
           disabled={isSignInLoading || isSignUpLoading}

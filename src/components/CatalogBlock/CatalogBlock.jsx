@@ -45,18 +45,10 @@ const CatalogBlock = () => {
 
   if (isError) {
     const { status, message } = errorHandler(error)
+    showError(`${status} ${message}`)
     return (
       <div className="container d-flex justify-content-center">
-        <p>
-          Status:
-          {' '}
-          {status}
-          {' '}
-          Message:
-          {' '}
-          {message}
-          <button className="btn btn-success" type="button" onClick={refetch}>Reload</button>
-        </p>
+        <button className="btn btn-success mt-5" type="button" onClick={refetch}>Reload</button>
       </div>
     )
   }

@@ -4,11 +4,11 @@ import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
 import { setAuth } from '../../../store/slices/authSlice'
 import api from '../../../tools/Api'
+import { showError, showSuccess } from '../../../tools/toaster'
 
 const useForm = (signup) => {
   const [formData, setFormData] = useState({ email: '', password: '', group: '' })
   const [isError, setIsError] = useState({ email: false, password: false })
-  const [error, setError] = useState('')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -17,19 +17,19 @@ const useForm = (signup) => {
     switch (errorObj.response?.status) {
       case 400:
       case 401:
-        setError(errorObj.response.data.message)
+        showError(errorObj.response.data.message)
         setIsError({ email: true, password: true })
         break
       case 404:
       case 409:
-        setError(errorObj.response.data.message)
+        showError(errorObj.response.data.message)
         setIsError({ email: true, password: false })
         break
       case undefined:
-        setError('Error when sending request, try again.')
+        showError('Error when sending request, try again.')
         break
       default:
-        setError(errorObj.response?.data?.message || errorObj.message)
+        showError(errorObj.response?.data?.message || errorObj.message)
         break
     }
   }
@@ -37,6 +37,7 @@ const useForm = (signup) => {
   const { mutate: signIn, isLoading: isSignInLoading } = useMutation({
     mutationFn: (credentials) => api.signIn(credentials),
     onSuccess: (response) => {
+      showSuccess(`Sign in successfull! Welcome, ${response.data.data.name}`)
       setFormData({ email: '', password: '', group: '' })
       dispatch(setAuth({ token: response.data.token, group: response.data.data.group }))
       navigate('/')
@@ -49,6 +50,7 @@ const useForm = (signup) => {
   const { mutate: signUp, isLoading: isSignUpLoading } = useMutation({
     mutationFn: (credentials) => api.signUp(credentials),
     onSuccess: () => {
+      showSuccess('User successfully registered')
       setFormData({ email: '', password: '', group: '' })
       navigate('/signin')
     },
@@ -85,7 +87,7 @@ const useForm = (signup) => {
   }
 
   return {
-    formData, error, isError, signAction, formChangeHandler, isSignInLoading, isSignUpLoading,
+    formData, isError, signAction, formChangeHandler, isSignInLoading, isSignUpLoading,
   }
 }
 

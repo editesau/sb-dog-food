@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { clearAuth } from '../../store/slices/authSlice'
+import { clearProducts } from '../../store/slices/productsSlice'
 import api from '../../tools/Api'
 import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
@@ -18,6 +19,7 @@ const Cabinet = () => {
 
   const logoutHandler = () => {
     dispatch(clearAuth())
+    dispatch(clearProducts())
     navigate('/signin')
   }
 

@@ -12,6 +12,9 @@ const productsSlice = createSlice({
     setProducts: (state, action) => {
       state.allProducts = action.payload
     },
+    clearProducts: (state) => {
+      state.allProducts = []
+    },
     filterProducts: (state, action) => {
       const query = RegExp(action.payload, 'i')
       state.isFiltered = true
@@ -26,5 +29,7 @@ const productsSlice = createSlice({
   },
 })
 
-export const { setProducts, filterProducts, clearFilter } = productsSlice.actions
+export const {
+  setProducts, filterProducts, clearFilter, clearProducts,
+} = productsSlice.actions
 export default productsSlice.reducer

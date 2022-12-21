@@ -10,6 +10,17 @@ const showError = (errorText) => toast.error(errorText, {
   theme: 'colored',
 })
 
+const showSuccess = (text) => toast.success(text, {
+  position: 'top-right',
+  autoClose: 3000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  theme: 'colored',
+})
+
 export {
   showError,
+  showSuccess,
 }
