@@ -12,11 +12,8 @@ const Cabinet = () => {
 
   const { isLoading, data: user } = useQuery({
     queryKey: [USER_INFO_QUERY_KEY],
-    queryFn: async () => {
-      const response = await api.getUserInfo()
-      const userData = response.json()
-      return userData
-    },
+    queryFn: api.getUserInfo,
+
   })
 
   const logoutHandler = () => {
@@ -32,13 +29,13 @@ const Cabinet = () => {
       <div className="card mb-3">
         <div className="row g-0">
           <div className="col-md-4">
-            <img src={user.avatar} className="img-fluid rounded-start" alt="..." />
+            <img src={user.data.avatar} className="img-fluid rounded-start" alt="..." />
           </div>
           <div className="col-md-8">
             <div className="card-body">
-              <h5 className="card-title">{user.name}</h5>
-              <p className="card-text">{user.about}</p>
-              <p className="card-text"><small className="text-muted">{user.email}</small></p>
+              <h5 className="card-title">{user.data.name}</h5>
+              <p className="card-text">{user.data.about}</p>
+              <p className="card-text"><small className="text-muted">{user.data.email}</small></p>
             </div>
           </div>
         </div>

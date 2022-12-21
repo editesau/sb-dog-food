@@ -1,44 +1,63 @@
 import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { setProducts } from '../../store/slices/productsSlice'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
+import { showError } from '../../tools/toaster'
 import ItemCard from '../ItemCard/ItemCard'
 import Loader from '../Loader/Loader'
 
 const CatalogBlock = () => {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.products.allProducts)
-  const auth = useSelector((state) => state.auth.token)
 
-  if (!auth) return <Navigate to="/signin" />
+  const navigate = useNavigate()
+
+  const errorHandler = (errorObj) => {
+    switch (errorObj.response?.status) {
+      case 401:
+      case 400:
+      case 404:
+        return { status: errorObj.response.status, message: errorObj.response.data.message }
+      case undefined:
+        return { status: 'Unknown', message: errorObj.message }
+      default:
+        return { status: errorObj.response?.status || 'Unknown', message: errorObj.response?.data?.message || errorObj.message }
+    }
+  }
 
   const {
-    isLoading, isError, error,
+    isLoading, isError, error, refetch,
   } = useQuery({
     queryKey: [ITEMS_QUERY_KEY],
-    queryFn: async () => {
-      const responseData = await api.getAllProducts()
-      return responseData
+    queryFn: api.getAllProducts,
+    onSuccess: ({ data }) => {
+      dispatch(setProducts(data.products))
     },
-    onSuccess: (responseData) => {
-      dispatch(setProducts(responseData.products))
+    onError: (e) => {
+      showError(e.response?.data.message || e.message)
+      if (e.response?.status === 401) navigate('/signin')
     },
   })
 
   if (isLoading) return <Loader />
+
   if (isError) {
-    const { status, message } = JSON.parse(error.message)
+    const { status, message } = errorHandler(error)
     return (
-      <p>
-        Status:
-        {' '}
-        {status}
-        Message:
-        {' '}
-        {message}
-      </p>
+      <div className="container d-flex justify-content-center">
+        <p>
+          Status:
+          {' '}
+          {status}
+          {' '}
+          Message:
+          {' '}
+          {message}
+          <button className="btn btn-success" type="button" onClick={refetch}>Reload</button>
+        </p>
+      </div>
     )
   }
 

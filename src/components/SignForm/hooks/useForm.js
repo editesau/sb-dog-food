@@ -13,36 +13,47 @@ const useForm = (signup) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { mutateAsync: signIn, isLoading: isSignInLoading } = useMutation({
-    mutationFn: async (credentials) => {
-      const responseData = await api.signIn(credentials)
-      return responseData
-    },
-    onSuccess: (responseData) => {
+  const errorHandler = (errorObj) => {
+    switch (errorObj.response?.status) {
+      case 400:
+      case 401:
+        setError(errorObj.response.data.message)
+        setIsError({ email: true, password: true })
+        break
+      case 404:
+      case 409:
+        setError(errorObj.response.data.message)
+        setIsError({ email: true, password: false })
+        break
+      case undefined:
+        setError('Error when sending request, try again.')
+        break
+      default:
+        setError(errorObj.response?.data?.message || errorObj.message)
+        break
+    }
+  }
+
+  const { mutate: signIn, isLoading: isSignInLoading } = useMutation({
+    mutationFn: (credentials) => api.signIn(credentials),
+    onSuccess: (response) => {
       setFormData({ email: '', password: '', group: '' })
-      dispatch(setAuth({ token: responseData.token, group: responseData.data.group }))
+      dispatch(setAuth({ token: response.data.token, group: response.data.data.group }))
       navigate('/')
     },
     onError: (e) => {
-      const { message } = JSON.parse(e.message.slice(e.message.indexOf('{')))
-      setError(message)
-      setIsError({ email: true, password: true })
+      errorHandler(e)
     },
   })
 
-  const { mutateAsync: signUp, isLoading: isSignUpLoading } = useMutation({
-    mutationFn: async (credentials) => {
-      const responseData = await api.signUp(credentials)
-      return responseData
-    },
+  const { mutate: signUp, isLoading: isSignUpLoading } = useMutation({
+    mutationFn: (credentials) => api.signUp(credentials),
     onSuccess: () => {
       setFormData({ email: '', password: '', group: '' })
       navigate('/signin')
     },
     onError: (e) => {
-      const { status, message } = JSON.parse(e.message.slice(e.message.indexOf('{')))
-      setError(message)
-      setIsError({ email: true, password: status !== 409 })
+      errorHandler(e)
     },
   })
 
