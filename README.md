@@ -11,14 +11,14 @@ npm i
 npm run dev
 ```
 
-For task:
+## For task:
 
-Register and Sign in requests in useForm hook
+ - Register and Sign in requests in useForm hook (src/components/SignForm/hooks/useForm.js)
 
-Get products request in CatalogBlock component
+ - Get products request in CatalogBlock component (src/components/CatalogBlock/CatalogBlock.jsx)
 
-Get user info request in Cabinet component
+ - Get user info request in Cabinet component (src/components/Cabinet/Cabinet.jsx)
 
 All using tan-stack query
 
-Redux was used, because it will be mandatory in our final project
+P.S. Redux was used, because it will be mandatory in our final project
