@@ -1,16 +1,50 @@
-import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useMutation } from '@tanstack/react-query'
+import { setAuth } from '../../../store/slices/authSlice'
 import api from '../../../tools/Api'
 
 const useForm = (signup) => {
   const [formData, setFormData] = useState({ email: '', password: '', group: '' })
   const [isError, setIsError] = useState({ email: false, password: false })
   const [error, setError] = useState('')
+
+  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const clearForm = () => {
-    setFormData({ email: '', password: '', group: '' })
-  }
+
+  const { mutateAsync: signIn, isLoading: isSignInLoading } = useMutation({
+    mutationFn: async (credentials) => {
+      const responseData = await api.signIn(credentials)
+      return responseData
+    },
+    onSuccess: (responseData) => {
+      setFormData({ email: '', password: '', group: '' })
+      dispatch(setAuth({ token: responseData.token, group: responseData.data.group }))
+      navigate('/')
+    },
+    onError: (e) => {
+      const { message } = JSON.parse(e.message.slice(e.message.indexOf('{')))
+      setError(message)
+      setIsError({ email: true, password: true })
+    },
+  })
+
+  const { mutateAsync: signUp, isLoading: isSignUpLoading } = useMutation({
+    mutationFn: async (credentials) => {
+      const responseData = await api.signUp(credentials)
+      return responseData
+    },
+    onSuccess: () => {
+      setFormData({ email: '', password: '', group: '' })
+      navigate('/signin')
+    },
+    onError: (e) => {
+      const { status, message } = JSON.parse(e.message.slice(e.message.indexOf('{')))
+      setError(message)
+      setIsError({ email: true, password: status !== 409 })
+    },
+  })
 
   const formChangeHandler = (event) => {
     setIsError({ email: false, password: false })
@@ -29,46 +63,18 @@ const useForm = (signup) => {
     }
   }
 
-  const { mutateAsync } = useMutation({ mutationFn: api.signUp })
   const signAction = async (event) => {
     event.preventDefault()
-    let response = null
-    let responseData = null
     if (signup) {
-      response = await mutateAsync(formData)
+      signUp(formData)
     } else {
       const { email, password } = formData
-      response = await api.signIn({ email, password })
-    }
-    responseData = await response.json()
-    switch (response.status) {
-      case 200:
-        clearForm()
-        window.localStorage.setItem('authToken', responseData.token)
-        window.localStorage.setItem('groupId', responseData.data.group)
-        navigate('/')
-        break
-      case 201:
-        clearForm()
-        navigate('/signin')
-        break
-      case 400:
-      case 401:
-      case 404:
-        setError(responseData.message)
-        setIsError({ email: true, password: true })
-        break
-      case 409:
-        setError(responseData.message)
-        setIsError({ email: true, password: false })
-        break
-      default:
-        break
+      signIn({ email, password })
     }
   }
 
   return {
-    formData, error, isError, signAction, formChangeHandler,
+    formData, error, isError, signAction, formChangeHandler, isSignInLoading, isSignUpLoading,
   }
 }
 

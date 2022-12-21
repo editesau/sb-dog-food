@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { clearAuth } from '../../store/slices/authSlice'
 import api from '../../tools/Api'
 import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
 
 const Cabinet = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const { isLoading, data: user } = useQuery({
     queryKey: [USER_INFO_QUERY_KEY],
@@ -16,8 +19,8 @@ const Cabinet = () => {
     },
   })
 
-  const logout = () => {
-    window.localStorage.clear()
+  const logoutHandler = () => {
+    dispatch(clearAuth())
     navigate('/signin')
   }
 
@@ -43,7 +46,7 @@ const Cabinet = () => {
       <div className="cabinet-buttons d-flex flex-column gap-2">
         <button type="button" className="btn btn-success">Change password</button>
         <button type="button" className="btn btn-success">Change info</button>
-        <button type="button" onClick={logout} className="btn btn-danger">Logout</button>
+        <button type="button" onClick={logoutHandler} className="btn btn-danger">Logout</button>
       </div>
 
     </div>
