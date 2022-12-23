@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setProducts } from '../../store/slices/productsSlice'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import { showError } from '../../tools/toaster'
@@ -9,9 +7,6 @@ import ItemCard from '../ItemCard/ItemCard'
 import Loader from '../Loader/Loader'
 
 const CatalogBlock = () => {
-  const dispatch = useDispatch()
-  const products = useSelector((state) => state.products.allProducts)
-
   const navigate = useNavigate()
 
   const errorHandler = (errorObj) => {
@@ -28,13 +23,10 @@ const CatalogBlock = () => {
   }
 
   const {
-    isLoading, isError, error, refetch,
+    isLoading, isError, error, refetch, data,
   } = useQuery({
     queryKey: [ITEMS_QUERY_KEY],
     queryFn: api.getAllProducts,
-    onSuccess: ({ data }) => {
-      dispatch(setProducts(data.products))
-    },
     onError: (e) => {
       showError(e.response?.data.message || e.message)
       if (e.response?.status === 401) navigate('/signin')
@@ -56,7 +48,7 @@ const CatalogBlock = () => {
   return (
     <div className="catalog-block">
       <div className="container d-flex flex-wrap gap-3 my-3 justify-content-center">
-        {products.map((product) => product.available
+        {data.data.products.map((product) => product.available
         // eslint-disable-next-line no-underscore-dangle
         && <ItemCard key={product._id} product={product} />)}
       </div>

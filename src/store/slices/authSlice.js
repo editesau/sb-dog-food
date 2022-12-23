@@ -1,28 +1,24 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
-import { USER_GROUP_STORAGE_KEY, USER_TOKEN_STORAGE_KEY } from '../../tools/storageKeys'
+import { USER_TOKEN_STORAGE_KEY } from '../../tools/storageKeys'
 
 const initialState = {
-  token: window.localStorage.getItem(USER_TOKEN_STORAGE_KEY),
-  group: window.localStorage.getItem(USER_GROUP_STORAGE_KEY),
+  value: window.localStorage.getItem(USER_TOKEN_STORAGE_KEY),
 }
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: 'token',
   initialState,
   reducers: {
-    setAuth: (state, action) => {
-      state.token = action.payload.token
-      window.localStorage.setItem(USER_TOKEN_STORAGE_KEY, action.payload.token)
-      window.localStorage.setItem(USER_GROUP_STORAGE_KEY, action.payload.group)
+    setToken: (state, action) => {
+      state.value = action.payload
     },
-    clearAuth: (state) => {
-      state.token = null
-      state.group = null
-      window.localStorage.clear()
+    clearToken: (state) => {
+      state.value = null
     },
   },
 })
 
-export const { setAuth, clearAuth } = authSlice.actions
+export const { setToken, clearToken } = authSlice.actions
+
 export default authSlice.reducer

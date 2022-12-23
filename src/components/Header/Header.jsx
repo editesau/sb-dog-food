@@ -5,7 +5,7 @@ import Logo from '../Logo/Logo'
 import headerStyles from './header.module.css'
 
 const Header = () => {
-  const auth = useSelector((state) => state.auth.token)
+  const auth = !!useSelector((store) => store.token.value)
   return (
     <div className={`${headerStyles.navbar} navbar`}>
       <div className={`${headerStyles.container} container d-flex`}>

@@ -1,17 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { useMutation } from '@tanstack/react-query'
-import { setAuth } from '../../../store/slices/authSlice'
+import { useDispatch } from 'react-redux'
 import api from '../../../tools/Api'
 import { showError, showSuccess } from '../../../tools/toaster'
+import { USER_GROUP_STORAGE_KEY, USER_TOKEN_STORAGE_KEY } from '../../../tools/storageKeys'
+import { setToken } from '../../../store/slices/authSlice'
 
 const useForm = (signup) => {
   const [formData, setFormData] = useState({ email: '', password: '', group: '' })
   const [isError, setIsError] = useState({ email: false, password: false })
 
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)) {
+      showError('You are already authorized, logout and try again!')
+      navigate('/')
+    }
+  }, [navigate])
 
   const errorHandler = (errorObj) => {
     switch (errorObj.response?.status) {
@@ -39,7 +47,9 @@ const useForm = (signup) => {
     onSuccess: (response) => {
       showSuccess(`Sign in successfull! Welcome, ${response.data.data.name}`)
       setFormData({ email: '', password: '', group: '' })
-      dispatch(setAuth({ token: response.data.token, group: response.data.data.group }))
+      window.localStorage.setItem(USER_TOKEN_STORAGE_KEY, response.data.token)
+      window.localStorage.setItem(USER_GROUP_STORAGE_KEY, response.data.data.group)
+      dispatch(setToken(response.data.token))
       navigate('/')
     },
     onError: (e) => {
