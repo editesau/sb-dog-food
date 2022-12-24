@@ -1,7 +1,8 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  cart: [],
+  cart: {},
 }
 
 const cartSlice = createSlice({
@@ -9,10 +10,14 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem: (state, action) => {
-      state.push(action.payload)
+      if (action.payload.id in state.cart) {
+        state.cart[action.payload.id] += action.payload.count
+      } else {
+        state.cart[action.payload.id] = action.payload.count
+      }
     },
     removeItem: (state, action) => {
-      state.splice(state.indexOf(action.payload), 1)
+      state.cart.splice(state.indexOf(action.payload), 1)
     },
   },
 })

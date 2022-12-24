@@ -9,13 +9,6 @@
   height: 20vh;
 }
 
-.itemCard button {
-  background-color: darkkhaki;
-  padding: 5px 10px;
-  border-radius: 15px;
-  align-self: center;
-}
-
 .itemDiscount {
   text-decoration: line-through;
 }
