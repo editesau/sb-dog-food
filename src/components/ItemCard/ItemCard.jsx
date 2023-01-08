@@ -1,62 +1,86 @@
+import {
+  AddShoppingCart, FavoriteBorder, Favorite,
+} from '@mui/icons-material'
+import {
+  Grid, Card, CardMedia, CardContent,
+  Typography, Box, CardActions, CardActionArea, IconButton, Divider,
+} from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem } from '../../store/slices/cartSlice'
 import ItemTagsHolder from '../ItemTagsHolder/ItemTagsHolder'
-import itemCardStyles from './itemCard.module.css'
 
 const ItemCard = ({ product }) => {
   const dispatch = useDispatch()
 
   const cart = useSelector((store) => store.cart)
-  const isInCart = cart.findIndex((cartItem) => cartItem.id === product._id) !== -1
+  // const isInCart = cart.findIndex((cartItem) => cartItem.id === product._id) !== -1
 
   const cartHandler = () => {
     dispatch(addItem({ id: product._id, count: 1 }))
   }
 
-  return (
-    <div className={`${itemCardStyles.itemCard} card`}>
-      <ItemTagsHolder tags={product.tags} />
-      <img src={product.pictures} className="card-img-top" alt={product.name} />
-      <div className="card-body d-flex flex-column justify-content-between">
-        <h6 className="card-title">{product.name}</h6>
-        {product.wight && (
-        <p className="card-subtitle">
-          Capacity:
-          {' '}
-          {product.wight}
-        </p>
-        )}
-        <div className="d-flex justify-content-between">
-          <span
-            className={`${
-              product.discount && itemCardStyles.itemDiscount
-            } card-text`}
-          >
-            {product.price}
-            {' '}
-            ₽
-          </span>
-          {product.discount !== 0 && (
-          <span className={itemCardStyles.sale}>
-            {Math.round(product.price * ((100 - product.discount) / 100))}
-            {' '}
-            ₽
-          </span>
-          )}
-        </div>
-      </div>
-      <div className="card-footer d-flex justify-content-center align-items-center">
-        <button
-          disabled={product.stock <= cart.find((cartItem) => cartItem.id === product._id)?.count}
-          className={`btn ${isInCart ? 'btn-primary' : 'btn-success'} m-2`}
-          type="button"
-          onClick={cartHandler}
-        >
-          {isInCart ? 'More' : 'Cart'}
+  const isFavorite = true
 
-        </button>
-      </div>
-    </div>
+  return (
+    <Grid item xs={12} sm={6} md={4}>
+      <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <CardActionArea>
+          <ItemTagsHolder tags={product.tags} />
+          <CardMedia sx={{ height: 200 }} image={product.pictures} className="card-img-top" alt={product.name} />
+
+          <CardContent>
+            <Typography align="center" noWrap variant="body1" component="h3">{product.name}</Typography>
+            <Divider sx={{ my: 2 }} />
+            {product.wight && (
+            <Typography variant="body2">
+              Capacity:
+              {' '}
+              {product.wight}
+            </Typography>
+            )}
+            <Box>
+              <Typography
+                variant="body1"
+                sx={product.discount ? { textDecoration: 'line-through' } : {}}
+              >
+                {product.price}
+                {' '}
+                ₽
+              </Typography>
+              {product.discount !== 0 && (
+              <Typography variant="body1" sx={{ color: 'red' }}>
+                {Math.round(product.price * ((100 - product.discount) / 100))}
+                {' '}
+                ₽
+              </Typography>
+              )}
+            </Box>
+          </CardContent>
+        </CardActionArea>
+        <CardActions sx={{ mt: 'auto' }}>
+          {isFavorite
+            ? (
+              <IconButton sx={{ ml: 'auto' }} color="error">
+                <Favorite />
+              </IconButton>
+            )
+            : (
+              <IconButton color="primary">
+                <FavoriteBorder />
+              </IconButton>
+            )}
+          <IconButton
+            color="primary"
+            disabled={product.stock <= cart.find(
+              (cartItem) => cartItem.id === product._id,
+            )?.count}
+            onClick={cartHandler}
+          >
+            <AddShoppingCart />
+          </IconButton>
+        </CardActions>
+      </Card>
+    </Grid>
   )
 }
 

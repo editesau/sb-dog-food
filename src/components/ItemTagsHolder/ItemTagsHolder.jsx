@@ -1,12 +1,11 @@
 /* eslint-disable react/no-array-index-key */
-import ItemTag from '../ItemTag/ItemTag'
-import itemTagsHolderStyles from './itemTagsHolder.module.css'
+import { List, Chip } from '@mui/material'
 
 const ItemTagsHolder = ({ tags }) => {
   return (
-    <div className={`${itemTagsHolderStyles.tags} d-flex flex-row justify-content-start`}>
-      {tags && tags.map((tag, idx) => <ItemTag key={idx} tag={tag} />)}
-    </div>
+    <List sx={{ position: 'absolute' }}>
+      {tags && tags.map((tag, idx) => <Chip color="success" key={idx} label={tag} sx={{ mr: 1 }} />)}
+    </List>
   )
 }
 

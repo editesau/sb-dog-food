@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Typography } from '@mui/material'
 
 const Logo = () => (
-  <div className="navbar-brand">
-    <Link to="/" style={{ textDecoration: 'none', color: 'black' }}><h2>Dog food</h2></Link>
-  </div>
+  <Typography variant="h4" component="h2">
+    DogFood
+  </Typography>
 )
 
 export default Logo

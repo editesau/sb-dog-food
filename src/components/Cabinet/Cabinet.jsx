@@ -1,16 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import api from '../../tools/Api'
 import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
 import { clearToken } from '../../store/slices/authSlice'
-import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 const Cabinet = () => {
-  const { value: token } = useSelector((store) => store.token)
-  if (!token) return <ErrorMessage code={401} />
-
   const navigate = useNavigate()
   const dispatch = useDispatch()
 

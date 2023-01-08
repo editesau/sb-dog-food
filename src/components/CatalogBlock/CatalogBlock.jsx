@@ -1,19 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
-// import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { Container, Grid } from '@mui/material'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import { showError } from '../../tools/toaster'
 import { errorHandler } from '../../tools/utils'
-import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import ItemCard from '../ItemCard/ItemCard'
 import Loader from '../Loader/Loader'
 
 const CatalogBlock = () => {
-  // const navigate = useNavigate()
-  const { value: token } = useSelector((store) => store.token)
+  const navigate = useNavigate()
 
-  if (!token) return <ErrorMessage code={401} />
   const {
     isLoading, isError, error, refetch, data,
   } = useQuery({
@@ -21,7 +18,7 @@ const CatalogBlock = () => {
     queryFn: api.getAllProducts,
     onError: (e) => {
       showError(e.response?.data.message || e.message)
-      // if (e.response?.status === 401) navigate('/signin')
+      if (e.response?.status === 401) navigate('/signin')
     },
   })
 
@@ -38,13 +35,13 @@ const CatalogBlock = () => {
   }
 
   return (
-    <div className="catalog-block">
-      <div className="container d-flex flex-wrap gap-3 my-3 justify-content-center">
+    <Container>
+      <Grid container spacing={3}>
         {data.data.products.map((product) => product.available
         // eslint-disable-next-line no-underscore-dangle
         && <ItemCard key={product._id} product={product} />)}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   )
 }
 
