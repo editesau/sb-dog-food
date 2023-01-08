@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import HeaderIcons from '../HeaderIcons/HeaderIcons'
 import HeaderSearch from '../HeaderSearch/HeaderSearch'
 import Logo from '../Logo/Logo'
@@ -16,7 +17,7 @@ const Header = () => {
               <HeaderSearch />
               <HeaderIcons />
             </>
-          ) : (<button className="btn btn-primary" type="button">Login</button>)
+          ) : (<Link to="signin" className="btn btn-primary">Login</Link>)
         }
 
       </div>

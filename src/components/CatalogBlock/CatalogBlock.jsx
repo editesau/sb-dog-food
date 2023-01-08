@@ -1,27 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import { showError } from '../../tools/toaster'
+import { errorHandler } from '../../tools/utils'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import ItemCard from '../ItemCard/ItemCard'
 import Loader from '../Loader/Loader'
 
 const CatalogBlock = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
+  const { value: token } = useSelector((store) => store.token)
 
-  const errorHandler = (errorObj) => {
-    switch (errorObj.response?.status) {
-      case 401:
-      case 400:
-      case 404:
-        return { status: errorObj.response.status, message: errorObj.response.data.message }
-      case undefined:
-        return { status: 'Unknown', message: errorObj.message }
-      default:
-        return { status: errorObj.response?.status || 'Unknown', message: errorObj.response?.data?.message || errorObj.message }
-    }
-  }
-
+  if (!token) return <ErrorMessage code={401} />
   const {
     isLoading, isError, error, refetch, data,
   } = useQuery({
@@ -29,7 +21,7 @@ const CatalogBlock = () => {
     queryFn: api.getAllProducts,
     onError: (e) => {
       showError(e.response?.data.message || e.message)
-      if (e.response?.status === 401) navigate('/signin')
+      // if (e.response?.status === 401) navigate('/signin')
     },
   })
 
