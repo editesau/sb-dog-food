@@ -1,14 +1,15 @@
 .tag {
-  padding: 2px;
+  padding: 5px 10px;
   margin: 5px;
-  border-radius: 50%;
+  border-radius: 10px;
   font-size: 0.8rem;
   color: white;
   background-color: brown;
+  opacity: 0.9;
 }
 .sale {
   background-color: red;
 }
 .new {
-  background-color: blue;
+  background-color: rgb(75, 165, 235);
 }

@@ -1,8 +1,8 @@
-import styles from './loader.module.css'
+import styles from './loader.module.scss'
 
 const Loader = () => {
   return (
-    <div className="d-flex justify-content-center mt-5">
+    <div className={styles.loader}>
       <div className={styles['lds-default']}>
         <div />
         <div />

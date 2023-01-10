@@ -1,8 +1,12 @@
 /* eslint-disable react/no-array-index-key */
-const ItemTagsHolder = ({ tags }) => {
+import ItemTag from '../ItemTag/ItemTag'
+import styles from './ItemTagsHolder.module.scss'
+
+const ItemTagsHolder = ({ tags, productDiscount }) => {
   return (
-    <div>
-      {tags && tags.map((tag) => <span>{tag}</span>)}
+    <div className={styles.itemTags}>
+      {productDiscount !== 0 && <ItemTag tag={`-${productDiscount}%`} />}
+      {tags && tags.map((tag, idx) => <ItemTag key={idx} tag={tag} />)}
     </div>
   )
 }

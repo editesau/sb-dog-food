@@ -43,6 +43,11 @@
     }
   }
 
+  &:hover {
+    box-shadow: 0 0 10px 4px rgb(250, 229, 105);
+    transition: box-shadow 0.2s linear;
+  }
+
 }
 
 .priceWrapper {

@@ -1,4 +1,5 @@
 import { getDiscountedPrice } from '../../tools/utils'
+import ItemTagsHolder from '../ItemTagsHolder/ItemTagsHolder'
 import styles from './ItemCard.module.scss'
 
 const ItemCard = ({ product }) => {
@@ -7,6 +8,7 @@ const ItemCard = ({ product }) => {
     <div className={styles.cardWrapper}>
       <img src={product.pictures} alt={product.name} />
       <i className={`${styles.favoriteIcon} ${styles.isFavorite}`} />
+      <ItemTagsHolder tags={product.tags} productDiscount={product.discount} />
       <div className={styles.priceWrapper}>
         <p className={`${styles.fullPrice} ${isDiscounted && styles.discounted}`}>
           {product.price}
