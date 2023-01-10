@@ -1,0 +1,16 @@
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+  img {
+    width: 60px;
+    height: 60px;
+  }
+  @media (max-width:460px) {
+    & h2 {
+      display: none;
+    }
+  }
+}

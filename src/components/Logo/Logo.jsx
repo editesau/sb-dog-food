@@ -1,9 +1,16 @@
-import { Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
+import logoImage from './Logo.svg'
+import styles from './LogoStyles.module.scss'
 
 const Logo = () => (
-  <Typography variant="h4" component="h2">
-    DogFood
-  </Typography>
+  <div className={styles.logo}>
+    <img src={logoImage} alt="logo" />
+    <Link style={{ color: 'inherit', textDecoration: 'none' }} to="/">
+      <h2>
+        DogFood
+      </h2>
+    </Link>
+  </div>
 )
 
 export default Logo

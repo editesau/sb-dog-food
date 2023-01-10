@@ -1,0 +1,29 @@
+.orderWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 700px;
+  margin: 10px auto;
+  padding: 10px;
+  background: #f2f2f2;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 4px #d0d0d0;
+
+  & p {
+    font-size: 16px;
+  }
+
+  & p:not(.selected) {
+    opacity: 0.5;
+  }
+
+  & p.selected {
+    text-decoration: underline;
+  }
+
+  & p:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}

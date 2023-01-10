@@ -1,0 +1,103 @@
+@import '../../styles/fontawesome/scss/fontawesome.scss';
+@import '../../styles/fontawesome/scss/regular.scss';
+@import '../../styles/fontawesome/scss/solid.scss';
+
+* {
+  margin: 0;
+}
+
+.cardWrapper {
+  height: 300px;
+  width: 200px;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: sans-serif;
+  background: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px 4px #d0d0d0;
+
+  img {
+    height: 150px;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+
+  .favoriteIcon {
+    @include fa-icon-regular($fa-var-heart);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    &.isFavorite,
+    &:hover {
+      @include fa-icon-solid($fa-var-heart);
+      color: red;
+      transition: color 0.2s linear;
+    }
+  }
+
+}
+
+.priceWrapper {
+  $pWr: &;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 1 auto;
+
+  .fullPrice:not(.discounted) {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 24px;
+  }
+
+  .discounted {
+    text-decoration: line-through;
+    font-size: 16px;
+  }
+
+  .discountPrice {
+    color: red;
+    font-size: 24px;
+  }
+}
+
+.wight {
+  opacity: 0.6;
+}
+
+.cardBottom {
+  width: 100%;
+}
+
+.productName {
+  height: 40px;
+  font-size: 18px;
+  overflow: hidden;
+  color: rgb(70, 70, 70)
+}
+
+.btnToCart {
+  cursor: pointer;
+  width: 50%;
+  height: 30px;
+  margin-top: 10px;
+  background-color: rgb(250, 229, 105);
+  border: 0;
+  border-radius: 20px;
+}
+
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
+  transform: translateY(-0.25em);
+  transition: 0.25s;
+}

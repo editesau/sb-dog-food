@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
-import { Container, Grid } from '@mui/material'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import { showError } from '../../tools/toaster'
 import { errorHandler } from '../../tools/utils'
 import ItemCard from '../ItemCard/ItemCard'
 import Loader from '../Loader/Loader'
+import OrderByMenu from '../OrderByMenu/OrderByMenu'
+import styles from './CatalogBlock.module.scss'
 
 const CatalogBlock = () => {
   const navigate = useNavigate()
@@ -35,13 +36,14 @@ const CatalogBlock = () => {
   }
 
   return (
-    <Container>
-      <Grid container spacing={3}>
+    <>
+      <OrderByMenu />
+      <div className={styles.container}>
         {data.data.products.map((product) => product.available
         // eslint-disable-next-line no-underscore-dangle
         && <ItemCard key={product._id} product={product} />)}
-      </Grid>
-    </Container>
+      </div>
+    </>
   )
 }
 
