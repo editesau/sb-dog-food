@@ -18,7 +18,7 @@ const HeaderIcons = ({ auth }) => {
         </Link>
         <Link
           style={{ color: 'inherit', textDecoration: 'none' }}
-          to="/cart"
+          to="/"
         >
           <i className="fa fa-solid fa-cart-shopping">
             { cartCount !== 0 && <span className={styles.badge}>{cartCount}</span> }
