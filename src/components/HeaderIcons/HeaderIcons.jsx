@@ -4,6 +4,8 @@ import styles from './headerIcons.module.scss'
 
 const HeaderIcons = ({ auth }) => {
   const cartCount = useSelector((store) => store.cart.length)
+  const token = useSelector((store) => store.user.token)
+
   return (
     <div className={styles.headerIcons}>
       {auth && (
@@ -25,7 +27,7 @@ const HeaderIcons = ({ auth }) => {
       </>
       )}
 
-      <Link style={{ color: 'inherit', textDecoration: 'none' }} to="/cabinet"><i className="fa fa-solid fa-user" /></Link>
+      <Link style={{ color: 'inherit', textDecoration: 'none' }} to={token ? '/cabinet' : '/signin'}><i className="fa fa-solid fa-user" /></Link>
     </div>
   )
 }

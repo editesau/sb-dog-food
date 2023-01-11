@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
@@ -12,23 +12,20 @@ import styles from './CatalogBlock.module.scss'
 import SearchResultInfo from '../SearchResultInfo/SearchResultInfo'
 
 const CatalogBlock = () => {
-  const navigate = useNavigate()
   const filter = useSelector((store) => store.filter.value)
   const sortValue = useSelector((store) => store.sort.value)
+  const token = useSelector((store) => store.user.token)
+
+  if (!token) return <Navigate to="/needlogin" />
 
   const {
     isLoading, isFetching, isError, error, refetch, data,
   } = useQuery({
     queryKey: filter === '' ? [ITEMS_QUERY_KEY] : [ITEMS_QUERY_KEY].concat(filter),
     queryFn: filter === '' ? api.getAllProducts : () => api.getFilteredProducts(filter),
-    onError: (e) => {
-      showError(e.response?.data.message || e.message)
-      if (e.response?.status === 401) navigate('/signin')
-    },
   })
 
   if (isLoading || isFetching) return <Loader />
-
   if (isError) {
     const { status, message } = errorHandler(error)
     showError(`${status} ${message}`)
@@ -39,6 +36,7 @@ const CatalogBlock = () => {
       </div>
     )
   }
+
   const products = filter !== '' ? data.data : data.data.products
   sortProducts(products, sortValue)
   return (
