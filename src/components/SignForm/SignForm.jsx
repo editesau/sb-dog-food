@@ -16,7 +16,7 @@ const SignForm = ({ signup }) => {
           type="email"
           id="signEmail"
           placeholder="Email"
-          className={styles.formInput}
+          className={`${styles.formInput} ${isError.email && styles.invalid}`}
           value={formData.email}
           onChange={formChangeHandler}
         />
@@ -24,7 +24,7 @@ const SignForm = ({ signup }) => {
           type="password"
           id="signPassword"
           placeholder="Password"
-          className={styles.formInput}
+          className={`${styles.formInput} ${isError.password && styles.invalid}`}
           value={formData.password}
           onChange={formChangeHandler}
         />
@@ -46,14 +46,21 @@ const SignForm = ({ signup }) => {
         >
           {signup ? 'Sign Up' : 'Login'}
         </button>
-        {!signup && (
+        <hr />
+        {!signup ? (
           <>
-            <hr />
             <span>Not registered yet?</span>
             {' '}
             <Link to="/signup">Sign up!</Link>
           </>
-        )}
+        )
+          : (
+            <>
+              <span>Already registered?</span>
+              {' '}
+              <Link to="/signin">Login!</Link>
+            </>
+          )}
       </form>
     </div>
   )

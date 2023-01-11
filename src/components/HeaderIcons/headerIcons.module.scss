@@ -1,25 +1,25 @@
 .headerIcons {
   display: flex;
   gap: 1rem;
-}
 
-.headerIcons i {
-  position: relative;
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  line-height: 25px;
-  color: black;
-  cursor: pointer;
-  text-decoration: none;
-  border: 1px solid red;
-  border-radius: 5px;
-  padding: 2px;
-  transition: color 0.2s linear;
-}
+  i {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 2px;
+    transition: color 0.2s linear;
 
-.headerIcons i:hover {
-  color: red;
+    &:hover {
+      color: red;
+    }
+  }
 }
 
 .a {

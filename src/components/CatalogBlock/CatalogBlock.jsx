@@ -1,29 +1,33 @@
 import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
 import { showError } from '../../tools/toaster'
-import { errorHandler } from '../../tools/utils'
+import { errorHandler, sortProducts } from '../../tools/utils'
 import ItemCard from '../ItemCard/ItemCard'
 import Loader from '../Loader/Loader'
 import OrderByMenu from '../OrderByMenu/OrderByMenu'
 import styles from './CatalogBlock.module.scss'
+import SearchResultInfo from '../SearchResultInfo/SearchResultInfo'
 
 const CatalogBlock = () => {
   const navigate = useNavigate()
+  const filter = useSelector((store) => store.filter.value)
+  const sortValue = useSelector((store) => store.sort.value)
 
   const {
-    isLoading, isError, error, refetch, data,
+    isLoading, isFetching, isError, error, refetch, data,
   } = useQuery({
-    queryKey: [ITEMS_QUERY_KEY],
-    queryFn: api.getAllProducts,
+    queryKey: filter === '' ? [ITEMS_QUERY_KEY] : [ITEMS_QUERY_KEY].concat(filter),
+    queryFn: filter === '' ? api.getAllProducts : () => api.getFilteredProducts(filter),
     onError: (e) => {
       showError(e.response?.data.message || e.message)
       if (e.response?.status === 401) navigate('/signin')
     },
   })
 
-  if (isLoading) return <Loader />
+  if (isLoading || isFetching) return <Loader />
 
   if (isError) {
     const { status, message } = errorHandler(error)
@@ -34,12 +38,14 @@ const CatalogBlock = () => {
       </div>
     )
   }
-
+  const products = filter !== '' ? data.data : data.data.products
+  sortProducts(products, sortValue)
   return (
     <>
-      <OrderByMenu />
+      <SearchResultInfo productsCount={products.length} />
+      {products.length ? <OrderByMenu /> : undefined}
       <div className={styles.container}>
-        {data.data.products.map((product) => product.available
+        {products.map((product) => product.available
         // eslint-disable-next-line no-underscore-dangle
         && <ItemCard key={product._id} product={product} />)}
       </div>

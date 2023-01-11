@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
+import { USER_CART_STORAGE_KEY } from '../../tools/storageKeys'
 
-const initialState = []
+const initialState = JSON.parse(window.localStorage.getItem(USER_CART_STORAGE_KEY)) || []
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -19,9 +20,11 @@ const cartSlice = createSlice({
           count: action.payload.count,
         })
       }
+      window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
     },
     removeItem: (state, action) => {
       state.splice(state.indexOf(action.payload), 1)
+      window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
     },
   },
 })

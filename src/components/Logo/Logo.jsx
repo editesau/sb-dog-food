@@ -3,14 +3,12 @@ import logoImage from './Logo.svg'
 import styles from './LogoStyles.module.scss'
 
 const Logo = () => (
-  <div className={styles.logo}>
+  <Link className={styles.logo} to="/">
     <img src={logoImage} alt="logo" />
-    <Link style={{ color: 'inherit', textDecoration: 'none' }} to="/">
-      <h2>
-        DogFood
-      </h2>
-    </Link>
-  </div>
+    <h2>
+      DogFood
+    </h2>
+  </Link>
 )
 
 export default Logo

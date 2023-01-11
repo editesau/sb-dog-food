@@ -5,6 +5,7 @@ import api from '../../tools/Api'
 import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
 import { clearToken } from '../../store/slices/authSlice'
+import styles from './Cabinet.module.scss'
 
 const Cabinet = () => {
   const navigate = useNavigate()
@@ -24,26 +25,22 @@ const Cabinet = () => {
   if (isLoading) return <Loader />
 
   return (
-    <div className="container my-3 d-flex flex-column align-items-center">
+    <div className={styles.cabinetWrapper}>
       <h2>User info</h2>
-      <div className="card mb-3">
-        <div className="row g-0">
-          <div className="col-md-4">
-            <img src={user.data.avatar} className="img-fluid rounded-start" alt="..." />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">{user.data.name}</h5>
-              <p className="card-text">{user.data.about}</p>
-              <p className="card-text"><small className="text-muted">{user.data.email}</small></p>
-            </div>
-          </div>
+      <hr />
+      <div className={styles.cabinetContent}>
+        <img src={user.data.avatar} alt={user.data.name} />
+        <div>
+          <h4>{user.data.name}</h4>
+          <p>{user.data.about}</p>
+          <p>{user.data.email}</p>
         </div>
+
       </div>
-      <div className="cabinet-buttons d-flex flex-column gap-2">
-        <button type="button" className="btn btn-success">Change password</button>
-        <button type="button" className="btn btn-success">Change info</button>
-        <button type="button" onClick={logoutHandler} className="btn btn-danger">Logout</button>
+      <div className={styles.cabinetButtons}>
+        <button type="button">Change password</button>
+        <button type="button">Change info</button>
+        <button type="button" onClick={logoutHandler}>Logout</button>
       </div>
 
     </div>

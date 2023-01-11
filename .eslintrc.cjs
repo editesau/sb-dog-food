@@ -23,7 +23,7 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'react/prop-types': 0,
     'react/function-component-definition': [1, { namedComponents: 'arrow-function' }],
-    'no-console': 0,
+    'no-console': 1,
     'import/no-cycle': 0,
     'import/prefer-default-export': 0,
     'arrow-body-style': 0,

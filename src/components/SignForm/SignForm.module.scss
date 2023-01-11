@@ -16,21 +16,26 @@
   border-radius: 20px;
   box-shadow: 0 0 10px 4px #d0d0d0;
 
-  & * {
+  * {
     font-family: sans-serif;
   }
 
-  & h1 {
+  h1 {
     font-family: sans-serif;
   }
 
-  & .formInput {
+  .formInput {
     width: 200px;
     height: 30px;
     border: 1px solid grey;
     border-radius: 20px;
     text-align: center;
     font-size: 14px;
+    transition: border 0.2s linear;
+
+    &.invalid {
+      border: 2px solid red;
+    }
 
     &::placeholder {
       text-align: center;

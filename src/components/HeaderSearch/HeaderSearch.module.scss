@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
 
-  span {
+  .clearIcon {
     position: absolute;
     display: block;
     right: 5px;
@@ -15,12 +15,11 @@
     background-color: #ccc;
     text-align: center;
     cursor: pointer;
+    transition: color 0.2s ease-in;
 
     &:hover {
       color: black;
     }
-
-    transition: color 0.2s ease-in;
 
     @media (max-width: 380px) {
       display: none;
@@ -34,6 +33,7 @@
     border-radius: 40px;
     text-align: center;
     font-size: 18px;
+
     &::placeholder {
       text-align: center;
     }

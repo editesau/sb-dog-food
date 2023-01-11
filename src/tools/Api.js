@@ -22,6 +22,11 @@ class Api {
     return axios.get(`${this.baseUrl}/products`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 
+  getFilteredProducts = (filter) => {
+    const token = window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)
+    return axios.get(`${this.baseUrl}/products/search?query=${filter}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+  }
+
   getProductById = (id) => {
     const token = window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)
     return axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
