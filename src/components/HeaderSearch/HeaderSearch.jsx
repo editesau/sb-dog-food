@@ -2,13 +2,15 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useDispatch } from 'react-redux'
 import { useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { setFilter, clearFilter } from '../../store/slices/filterProductsSlice'
 import styles from './HeaderSearch.module.scss'
 
-const HeaderSearch = () => {
+const HeaderSearch = ({ auth }) => {
   const [inputValue, setInputValue] = useState('')
 
   const dispatch = useDispatch()
+  const location = useLocation()
 
   const debounce = (func, timeout = 500) => {
     let timer
@@ -33,7 +35,8 @@ const HeaderSearch = () => {
     setInputValue('')
     dispatch(clearFilter())
   }
-
+  if (!auth) return undefined
+  if (location.pathname !== '/') return undefined
   return (
     <div className={styles.searchWrapper}>
       <input className={styles.headerSearchInput} placeholder="Search" value={inputValue} onChange={searchHandler} />

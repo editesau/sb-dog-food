@@ -22,6 +22,7 @@ const sortSlice = createSlice({
     },
     clearSort: (state) => {
       state.value = ''
+      return state
     },
   },
 })

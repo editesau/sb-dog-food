@@ -1,4 +1,5 @@
 import { sortValues } from '../store/slices/sortSlice'
+import { USER_STORAGE_KEY } from './storageKeys'
 
 const errorHandler = (errorObj) => {
   switch (errorObj.response?.status) {
@@ -13,6 +14,17 @@ const errorHandler = (errorObj) => {
   }
 }
 
+const getUserTokenFromLS = () => {
+  const userLS = window.localStorage.getItem(USER_STORAGE_KEY)
+  if (userLS) return JSON.parse(userLS).token
+  return null
+}
+
+const getUserGroupFromLS = () => {
+  const userLS = window.localStorage.getItem(USER_STORAGE_KEY)
+  if (userLS) return JSON.parse(userLS).group
+  return null
+}
 const getDiscountedPrice = (price, discount) => {
   return Math.round(price * ((100 - discount) / 100))
 }
@@ -71,4 +83,6 @@ export {
   getDiscountedPrice,
   getProductRate,
   sortProducts,
+  getUserTokenFromLS,
+  getUserGroupFromLS,
 }

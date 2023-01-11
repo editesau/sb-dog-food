@@ -34,6 +34,7 @@ const CatalogBlock = () => {
     showError(`${status} ${message}`)
     return (
       <div className="container d-flex justify-content-center">
+        {/* TODO style error page */}
         <button className="btn btn-success mt-5" type="button" onClick={refetch}>Reload</button>
       </div>
     )

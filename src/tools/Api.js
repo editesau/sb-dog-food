@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { USER_GROUP_STORAGE_KEY, USER_TOKEN_STORAGE_KEY } from './storageKeys'
+import { getUserGroupFromLS, getUserTokenFromLS } from './utils'
 
 class Api {
   constructor(baseUrl) {
@@ -18,23 +18,28 @@ class Api {
   }
 
   getAllProducts = () => {
-    const token = window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)
+    const token = getUserTokenFromLS()
     return axios.get(`${this.baseUrl}/products`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 
   getFilteredProducts = (filter) => {
-    const token = window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)
+    const token = getUserTokenFromLS()
     return axios.get(`${this.baseUrl}/products/search?query=${filter}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 
   getProductById = (id) => {
-    const token = window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)
+    const token = getUserTokenFromLS()
     return axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 
+  getProductByIDs = (ids) => {
+    const token = getUserTokenFromLS()
+    return axios.all(ids.map((id) => axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })))
+  }
+
   getUserInfo = () => {
-    const group = window.localStorage.getItem(USER_GROUP_STORAGE_KEY)
-    const token = window.localStorage.getItem(USER_TOKEN_STORAGE_KEY)
+    const token = getUserTokenFromLS()
+    const group = getUserGroupFromLS()
     return axios.get(`${this.baseUrl}/v2/${group}/users/me`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 }
