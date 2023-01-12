@@ -1,0 +1,146 @@
+.cartItemContainer {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: sans-serif;
+  background: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px 4px #d0d0d0;
+
+  .cartItemSelector {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    &:checked {
+      color: rgb(250, 229, 105);
+    }
+  }
+
+  img {
+    height: 90px;
+    width: 90px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  p {
+    font-size: 12px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width:500px) {
+      font-size: 10px;
+    }
+  }
+}
+
+.cartItemMain {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex: 1 1 auto;
+}
+
+.cartItemInfo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.cartItemActions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+  margin: 10px 0;
+
+  i:hover {
+    color: red;
+    transition: color 0.2s linear;
+  }
+}
+
+.cartItemRight {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cartItemCounter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  input {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border: none;
+    background-color: #f2f2f2;
+  }
+
+  button {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    font-size: 24px;
+    text-align: center;
+    opacity: 0.8;
+    line-height: 24px;
+    border: none;
+    background-color: #f2f2f2;
+
+    &:hover:not(:disabled) {
+      color: rgb(250, 229, 105);
+      transition: color 0.1s linear;
+    }
+  }
+}
+
+.cartItemPrice {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex: 1 1 auto;
+
+  .fullPrice:not(.discounted) {
+    text-align: center;
+    padding-top: 15px;
+    font-size: 18px;
+  }
+
+  .discounted {
+    text-decoration: line-through;
+    font-size: 14px;
+  }
+
+  .discountPrice {
+    color: red;
+    font-size: 18px;
+  }
+}

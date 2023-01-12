@@ -29,6 +29,11 @@ const getDiscountedPrice = (price, discount) => {
   return Math.round(price * ((100 - discount) / 100))
 }
 
+const getPrice = (product) => {
+  if (product.discount) return getDiscountedPrice(product.price, product.discount)
+  return product.price
+}
+
 const getProductRate = (product) => {
   const rating = product.reviews.length
     ? product.reviews.reduce((sum, rate) => sum + rate.rating, 0) / product.reviews.length : 0
@@ -38,6 +43,18 @@ const getProductRate = (product) => {
 const getProductCreatedTimestamp = (timeString) => {
   const date = new Date(timeString)
   return date.valueOf()
+}
+
+const getOrderInfo = (prices, cart) => {
+  const fullInfo = prices.map((product) => {
+    return { ...product, ...cart.find((item) => item.id === product.id) }
+  }).filter((item) => item.isSelected)
+  let fullPrice = 0
+  const totalPrice = fullInfo.reduce((total, item) => {
+    fullPrice += item.price * item.count
+    return total + getPrice(item) * item.count
+  }, 0)
+  return { total: totalPrice, discount: fullPrice - totalPrice }
 }
 
 const sortProducts = (products, sortValue) => {
@@ -82,6 +99,7 @@ export {
   errorHandler,
   getDiscountedPrice,
   getProductRate,
+  getOrderInfo,
   sortProducts,
   getUserTokenFromLS,
   getUserGroupFromLS,

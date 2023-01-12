@@ -4,11 +4,6 @@ import styles from './SearchResultInfo.module.scss'
 const SearchResultInfo = ({ productsCount }) => {
   const filter = useSelector((store) => store.filter.value)
   if (!filter) return undefined
-  if (!productsCount) {
-    return (
-      <div>No result for your request</div>
-    )
-  }
   return (
     <div className={styles.searchResultWrapper}>
       <p className={styles.resultText}>

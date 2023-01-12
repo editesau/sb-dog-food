@@ -33,6 +33,7 @@ class Api {
   }
 
   getProductByIDs = (ids) => {
+    if (!ids.length) return []
     const token = getUserTokenFromLS()
     return axios.all(ids.map((id) => axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })))
   }
