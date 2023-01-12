@@ -1,16 +1,21 @@
+import { useSelector } from 'react-redux'
 import HeaderIcons from '../HeaderIcons/HeaderIcons'
-import HeaderSearch from '../HeaderSearch/HeaderSearch'
 import Logo from '../Logo/Logo'
-import headerStyles from './header.module.css'
+import HeaderSearch from '../HeaderSearch/HeaderSearch'
+import styles from './headerStyles.module.scss'
 
-const Header = () => (
-  <div className={`${headerStyles.navbar} navbar`}>
-    <div className={`${headerStyles.container} container d-flex`}>
-      <Logo />
-      <HeaderSearch />
-      <HeaderIcons />
-    </div>
-  </div>
-)
+const Header = () => {
+  const token = useSelector((store) => store.user.token)
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <Logo />
+        <HeaderSearch auth={token} />
+        <HeaderIcons auth={token} />
+      </div>
+    </header>
+  )
+}
 
 export default Header

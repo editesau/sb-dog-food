@@ -1,8 +1,8 @@
-import itemTagStyles from './itemTag.module.css'
+import styles from './ItemTag.module.scss'
 
 const ItemTag = ({ tag }) => {
   return (
-    <span className={`${itemTagStyles.tag} ${itemTagStyles[tag]}`}>{tag}</span>
+    <span className={`${styles.tag} ${styles[tag]}`}>{tag}</span>
   )
 }
 

@@ -1,3 +1,6 @@
+import axios from 'axios'
+import { getUserGroupFromLS, getUserTokenFromLS } from './utils'
+
 class Api {
   constructor(baseUrl) {
     this.baseUrl = baseUrl
@@ -6,40 +9,38 @@ class Api {
     }
   }
 
-  async signIn(signInData) {
-    try {
-      return await fetch(`${this.baseUrl}/signin`, { method: 'POST', headers: this.headers, body: JSON.stringify(signInData) })
-    } catch (e) {
-      return e.message
-    }
+  signIn = (signInData) => {
+    return axios.post(`${this.baseUrl}/signin`, signInData)
   }
 
-  async signUp(signUpData) {
-    console.log(signUpData)
-    try {
-      return await fetch(`${this.baseUrl}/signup`, { method: 'POST', headers: this.headers, body: JSON.stringify(signUpData) })
-    } catch (e) {
-      return e.message
-    }
+  signUp = (signUpData) => {
+    return axios.post(`${this.baseUrl}/signup`, signUpData)
   }
 
-  async getUserInfo() {
-    const group = window.localStorage.getItem('groupId')
-    const token = window.localStorage.getItem('authToken')
-    try {
-      return await fetch(`${this.baseUrl}/v2/${group}/users/me`, { method: 'GET', headers: { ...this.headers, authorization: `Bearer ${token}` } })
-    } catch (e) {
-      return e.message
-    }
+  getAllProducts = () => {
+    const token = getUserTokenFromLS()
+    return axios.get(`${this.baseUrl}/products`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 
-  async getAllProducts() {
-    const token = window.localStorage.getItem('authToken')
-    try {
-      return await fetch(`${this.baseUrl}/products`, { method: 'GET', headers: { ...this.headers, authorization: `Bearer ${token}` } })
-    } catch (e) {
-      return e.message
-    }
+  getFilteredProducts = (filter) => {
+    const token = getUserTokenFromLS()
+    return axios.get(`${this.baseUrl}/products/search?query=${filter}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+  }
+
+  getProductById = (id) => {
+    const token = getUserTokenFromLS()
+    return axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+  }
+
+  getProductByIDs = (ids) => {
+    const token = getUserTokenFromLS()
+    return axios.all(ids.map((id) => axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })))
+  }
+
+  getUserInfo = () => {
+    const token = getUserTokenFromLS()
+    const group = getUserGroupFromLS()
+    return axios.get(`${this.baseUrl}/v2/${group}/users/me`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 }
 

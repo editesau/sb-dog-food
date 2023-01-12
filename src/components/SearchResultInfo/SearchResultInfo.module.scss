@@ -1,0 +1,18 @@
+.searchResultWrapper {
+  max-width: 1030px;
+  margin: 0 auto;
+  padding: 15px 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.resultText {
+  font-family: sans-serif;
+  font-size: 18px;
+  span {
+    font-weight: bold;
+    font-style: italic;
+  }
+}

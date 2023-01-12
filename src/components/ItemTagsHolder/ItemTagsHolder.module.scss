@@ -1,0 +1,10 @@
+.itemTags {
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}

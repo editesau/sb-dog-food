@@ -1,0 +1,76 @@
+.signFormWrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.signFormContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin: 0 20px;
+  background: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 4px #d0d0d0;
+
+  * {
+    font-family: sans-serif;
+  }
+
+  h1 {
+    font-family: sans-serif;
+  }
+
+  .formInput {
+    width: 200px;
+    height: 30px;
+    border: 1px solid grey;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 14px;
+    transition: border 0.2s linear;
+
+    &.invalid {
+      border: 2px solid red;
+    }
+
+    &::placeholder {
+      text-align: center;
+    }
+
+    &:focus {
+      &::placeholder {
+        color: transparent;
+        transition: color 0.1s linear;
+      }
+    }
+  }
+
+  & *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  hr {
+    width: 90%;
+  }
+
+  .formBtn {
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    margin-top: 10px;
+    background-color: rgb(250, 229, 105);
+    border: 0;
+    border-radius: 20px;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
+      transform: translateY(-0.25em);
+      transition: 0.25s;
+    }
+  }
+}

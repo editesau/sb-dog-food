@@ -1,50 +1,53 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { useNavigate, Navigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import api from '../../tools/Api'
+import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
+import Loader from '../Loader/Loader'
+import { clearUser } from '../../store/slices/userSlice'
+import styles from './Cabinet.module.scss'
+import { showError } from '../../tools/toaster'
 
 const Cabinet = () => {
   const navigate = useNavigate()
-  const [user, setUser] = useState({})
+  const dispatch = useDispatch()
+  const token = useSelector((store) => store.user.token)
 
-  useEffect(() => {
-    if (!window.localStorage.getItem('authToken')) navigate('/signin')
+  const { isLoading, data: user } = useQuery({
+    queryKey: [USER_INFO_QUERY_KEY],
+    queryFn: api.getUserInfo,
+  })
 
-    const getInfo = async () => {
-      const response = await api.getUserInfo()
-      const responseData = await response.json()
-      setUser(responseData)
-      console.log(responseData)
-    }
-
-    getInfo()
-  }, [])
-
-  const logout = () => {
+  const logoutHandler = () => {
     window.localStorage.clear()
+    dispatch(clearUser())
     navigate('/signin')
   }
 
+  if (!token) {
+    showError('Need login')
+    return <Navigate to="/signin" />
+  }
+
+  if (isLoading) return <Loader />
+
   return (
-    <div className="container my-3 d-flex flex-column align-items-center">
+    <div className={styles.cabinetWrapper}>
       <h2>User info</h2>
-      <div className="card mb-3" style={{ 'max-width': '540px' }}>
-        <div className="row g-0">
-          <div className="col-md-4">
-            <img src={user.avatar} className="img-fluid rounded-start" alt="..." />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">{user.name}</h5>
-              <p className="card-text">{user.about}</p>
-              <p className="card-text"><small className="text-muted">{user.email}</small></p>
-            </div>
-          </div>
+      <hr />
+      <div className={styles.cabinetContent}>
+        <img src={user.data.avatar} alt={user.data.name} />
+        <div>
+          <h4>{user.data.name}</h4>
+          <p>{user.data.about}</p>
+          <p>{user.data.email}</p>
         </div>
+
       </div>
-      <div className="cabinet-buttons d-flex flex-column gap-2">
-        <button type="button" className="btn btn-success">Change password</button>
-        <button type="button" className="btn btn-success">Change info</button>
-        <button type="button" onClick={logout} className="btn btn-danger">Logout</button>
+      <div className={styles.cabinetButtons}>
+        <button type="button">Change password</button>
+        <button type="button">Change info</button>
+        <button type="button" onClick={logoutHandler}>Logout</button>
       </div>
 
     </div>

@@ -1,42 +1,42 @@
+import { useDispatch } from 'react-redux'
+import { getDiscountedPrice, getProductRate } from '../../tools/utils'
+import { addItem } from '../../store/slices/cartSlice'
 import ItemTagsHolder from '../ItemTagsHolder/ItemTagsHolder'
-import itemCardStyles from './itemCard.module.css'
+import styles from './ItemCard.module.scss'
 
-const ItemCard = ({ product }) => (
-  <div className={`${itemCardStyles.itemCard} card`}>
-    <ItemTagsHolder tags={product.tags} />
-    <img src={product.pictures} className="card-img-top" alt="..." />
-    <div className="card-body d-flex flex-column justify-content-between">
-      <h6 className="card-title">{product.name}</h6>
-      {product.wight && (
-        <p className="card-subtitle">
-          Capacity:
-          {' '}
-          {product.wight}
-        </p>
-      )}
-      <div className="d-flex justify-content-between">
-        <span
-          className={`${
-            product.discount && itemCardStyles.itemDiscount
-          } card-text`}
-        >
+const ItemCard = ({ product }) => {
+  const isDiscounted = product.discount !== 0
+  const dispatch = useDispatch()
+  const toCartHandler = () => {
+    dispatch(addItem({ id: product._id, count: 1 }))
+  }
+  return (
+    <div className={styles.cardWrapper}>
+      <img src={product.pictures} alt={product.name} />
+      <i className={`${styles.favoriteIcon} ${styles.isFavorite}`} />
+      <i className={styles.productRate}>{getProductRate(product)}</i>
+      <ItemTagsHolder tags={product.tags} productDiscount={product.discount} />
+      <div className={styles.priceWrapper}>
+        <p className={`${styles.fullPrice} ${isDiscounted && styles.discounted}`}>
           {product.price}
           {' '}
           ₽
-        </span>
-        {product.discount !== 0 && (
-          <span className={itemCardStyles.sale}>
-            {Math.round(product.price * ((100 - product.discount) / 100))}
-            {' '}
-            ₽
-          </span>
+        </p>
+        {isDiscounted && (
+        <p className={styles.discountPrice}>
+          {getDiscountedPrice(product.price, product.discount)}
+          {' '}
+          ₽
+        </p>
         )}
       </div>
+      <div className={styles.cardBottom}>
+        <p className={styles.wight}>{product.wight}</p>
+        <h3 className={styles.productName}>{product.name}</h3>
+      </div>
+      <button className={`${styles.btnToCart} ${styles.raise}`} type="button" onClick={toCartHandler}>To cart</button>
     </div>
-    <div className="card-footer d-flex justify-content-center">
-      <button type="button">Cart</button>
-    </div>
-  </div>
-)
+  )
+}
 
 export default ItemCard

@@ -3,6 +3,7 @@ import App from '../../App'
 import Cabinet from '../Cabinet/Cabinet'
 import CatalogBlock from '../CatalogBlock/CatalogBlock'
 import SignForm from '../SignForm/SignForm'
+import NeedLoginMessage from '../NeedLoginMessage/NeedLoginMessage'
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: 'cabinet',
         element: <Cabinet />,
+      },
+      {
+        path: 'needlogin',
+        element: <NeedLoginMessage />,
       },
     ],
   },
