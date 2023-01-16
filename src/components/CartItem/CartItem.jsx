@@ -1,35 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux'
-import {
-  increaseItemCount, decreaseItemCount, removeItem, toggleSelect,
-} from '../../store/slices/cartSlice'
 import { getDiscountedPrice } from '../../tools/utils'
 import styles from './CartItem.module.scss'
+import useCartItem from './hooks/useCartItem'
 
 const CartItem = ({ product }) => {
-  const dispatch = useDispatch()
-
-  const isDiscounted = product.discount !== 0
-  const cart = useSelector((store) => store.cart)
-  const cartItem = cart.find((item) => item.id === product._id)
-
-  const increaseDisabled = cartItem.count >= product.stock
-  const decreaseDisabled = cartItem.count <= 1
-
-  const increaseHandler = () => {
-    dispatch(increaseItemCount(product._id))
-  }
-
-  const decreaseHandler = () => {
-    dispatch(decreaseItemCount(product._id))
-  }
-
-  const removeHandler = () => {
-    dispatch(removeItem(product._id))
-  }
-
-  const selectHandler = () => {
-    dispatch(toggleSelect(product._id))
-  }
+  const {
+    isDiscounted, cartItem, selectHandler,
+    removeHandler, decreaseDisabled,
+    increaseDisabled, decreaseHandler, increaseHandler,
+  } = useCartItem(product)
 
   return (
     <div className={styles.cartItemContainer}>
