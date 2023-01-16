@@ -10,3 +10,4 @@ Install the dependencies and devDependencies and start the app.
 npm i
 npm run dev
 ```
+

@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getDiscountedPrice, getProductRate } from '../../tools/utils'
 import { addItem } from '../../store/slices/cartSlice'
 import ItemTagsHolder from '../ItemTagsHolder/ItemTagsHolder'
@@ -7,6 +7,11 @@ import styles from './ItemCard.module.scss'
 const ItemCard = ({ product }) => {
   const isDiscounted = product.discount !== 0
   const dispatch = useDispatch()
+  const cart = useSelector((store) => store.cart)
+  const cartItem = cart.find((item) => item.id === product._id)
+  const isInCart = !!cartItem
+  const isOutOfStock = isInCart && cartItem.count >= product.stock
+
   const toCartHandler = () => {
     dispatch(addItem({ id: product._id, count: 1 }))
   }
@@ -34,7 +39,23 @@ const ItemCard = ({ product }) => {
         <p className={styles.wight}>{product.wight}</p>
         <h3 className={styles.productName}>{product.name}</h3>
       </div>
-      <button className={`${styles.btnToCart} ${styles.raise}`} type="button" onClick={toCartHandler}>To cart</button>
+      <button
+        disabled={isOutOfStock}
+        className={
+          `${styles.btnToCart}
+          ${styles.raise}
+          ${isInCart ? styles.btnInCart : undefined} 
+          ${isOutOfStock ? styles.btnOutOfStock : undefined}`
+        }
+        type="button"
+        onClick={toCartHandler}
+      >
+        {}
+        {isOutOfStock
+          ? 'Out of stock'
+          : isInCart
+            ? 'One more' : 'To cart'}
+      </button>
     </div>
   )
 }
