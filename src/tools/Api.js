@@ -17,13 +17,11 @@ class Api {
     return axios.post(`${this.baseUrl}/signup`, signUpData)
   }
 
-  getAllProducts = () => {
+  getAllProducts = (filter) => {
     const token = getUserTokenFromLS()
-    return axios.get(`${this.baseUrl}/products`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
-  }
-
-  getFilteredProducts = (filter) => {
-    const token = getUserTokenFromLS()
+    if (filter === '') {
+      return axios.get(`${this.baseUrl}/products`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+    }
     return axios.get(`${this.baseUrl}/products/search?query=${filter}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
   }
 

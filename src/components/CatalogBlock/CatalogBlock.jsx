@@ -21,8 +21,8 @@ const CatalogBlock = () => {
   const {
     isLoading, isFetching, isError, error, refetch, data,
   } = useQuery({
-    queryKey: filter === '' ? [ITEMS_QUERY_KEY] : [ITEMS_QUERY_KEY].concat(filter),
-    queryFn: filter === '' ? api.getAllProducts : () => api.getFilteredProducts(filter),
+    queryKey: [ITEMS_QUERY_KEY].concat(filter),
+    queryFn: () => api.getAllProducts(filter),
   })
 
   if (isLoading || isFetching) return <Loader />
