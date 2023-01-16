@@ -27,18 +27,21 @@ const cartSlice = createSlice({
       const index = state.findIndex((product) => product.id === action.payload)
       if (index !== -1) {
         state[index].count += 1
+        window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
       }
     },
     decreaseItemCount: (state, action) => {
       const index = state.findIndex((product) => product.id === action.payload)
       if (index !== -1) {
         state[index].count -= 1
+        window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
       }
     },
     toggleSelect: (state, action) => {
       const index = state.findIndex((product) => product.id === action.payload)
       if (index !== -1) {
         state[index].isSelected = !state[index].isSelected
+        window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
       }
     },
     setSelectAll: (state, action) => {
