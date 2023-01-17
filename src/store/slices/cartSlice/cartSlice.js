@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
-import { USER_CART_STORAGE_KEY } from '../../tools/storageKeys'
+import { USER_CART_STORAGE_KEY } from '../../../tools/storageKeys'
 
 const initialState = JSON.parse(window.localStorage.getItem(USER_CART_STORAGE_KEY)) || []
 

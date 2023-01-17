@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
-import { USER_STORAGE_KEY } from '../../tools/storageKeys'
+import { USER_STORAGE_KEY } from '../../../tools/storageKeys'
 
 let initialState = { token: null, id: null, group: null }
 const userLS = window.localStorage.getItem(USER_STORAGE_KEY)

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiscountedPrice, getProductRate } from '../../tools/utils'
-import { addItem } from '../../store/slices/cartSlice'
+import { addItem } from '../../store/slices/cartSlice/cartSlice'
 import ItemTagsHolder from '../ItemTagsHolder/ItemTagsHolder'
 import styles from './ItemCard.module.scss'
 
@@ -14,6 +14,12 @@ const ItemCard = ({ product }) => {
 
   const toCartHandler = () => {
     dispatch(addItem({ id: product._id, count: 1 }))
+  }
+
+  const renderButtonText = () => {
+    if (isOutOfStock) return 'Out of stock'
+    if (isInCart) return 'One more'
+    return 'To cart'
   }
   return (
     <div className={styles.cardWrapper}>
@@ -51,10 +57,7 @@ const ItemCard = ({ product }) => {
         onClick={toCartHandler}
       >
         {}
-        {isOutOfStock
-          ? 'Out of stock'
-          : isInCart
-            ? 'One more' : 'To cart'}
+        {renderButtonText()}
       </button>
     </div>
   )

@@ -1,0 +1,8 @@
+export const sortValues = {
+  POPULAR: 'POPULAR',
+  PRICE_LOW: 'PRICE_LOW',
+  PRICE_HIGH: 'PRICE_HIGH',
+  RATE: 'RATE',
+  NEWEST: 'NEWEST',
+  DISCOUNT: 'DISCOUNT',
+}

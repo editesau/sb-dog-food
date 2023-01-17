@@ -25,7 +25,13 @@ const CatalogBlock = () => {
     queryFn: () => api.getAllProducts(filter),
   })
 
+  const renderOrderByMenu = (products) => {
+    if (products.length) return <OrderByMenu />
+    return undefined
+  }
+
   if (isLoading || isFetching) return <Loader />
+
   if (isError) {
     const { status, message } = errorHandler(error)
     showError(`${status} ${message}`)
@@ -37,12 +43,12 @@ const CatalogBlock = () => {
     )
   }
 
-  const products = filter !== '' ? data.data : data.data.products
-  sortProducts(products, sortValue)
+  let products = filter !== '' ? data.data : data.data.products
+  products = sortProducts(products, sortValue)
   return (
     <>
       <SearchResultInfo productsCount={products.length} />
-      {products.length ? <OrderByMenu /> : undefined}
+      {renderOrderByMenu(products)}
       <div className={styles.container}>
         {products.map((product) => product.available
         // eslint-disable-next-line no-underscore-dangle

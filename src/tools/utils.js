@@ -1,4 +1,4 @@
-import { sortValues } from '../store/slices/sortSlice'
+import { sortValues } from '../store/slices/sortSlice/sortValues'
 import { USER_STORAGE_KEY } from './storageKeys'
 
 const errorHandler = (errorObj) => {
@@ -57,7 +57,7 @@ const getOrderInfo = (prices, cart) => {
   return { total: totalPrice, discount: fullPrice - totalPrice }
 }
 
-const sortProducts = (products, sortValue) => {
+const sortProducts = ([...products], sortValue) => {
   const comparePrice = (productOne, productTwo) => {
     const priceOne = productOne.discount
       ? getDiscountedPrice(productOne.price, productOne.discount) : productOne.price
@@ -93,6 +93,7 @@ const sortProducts = (products, sortValue) => {
     default:
       break
   }
+  return products
 }
 
 export {

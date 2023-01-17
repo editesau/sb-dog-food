@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import {
   decreaseItemCount, increaseItemCount, removeItem, toggleSelect,
-} from '../../../store/slices/cartSlice'
+} from '../../../store/slices/cartSlice/cartSlice'
 
 const useCartItem = (product) => {
   const dispatch = useDispatch()

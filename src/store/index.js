@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
-import userReducer from './slices/userSlice'
-import cartReducer from './slices/cartSlice'
-import filterReducer from './slices/filterProductsSlice'
-import sortReducer from './slices/sortSlice'
+import userReducer from './slices/userSlice/userSlice'
+import cartReducer from './slices/cartSlice/cartSlice'
+import filterReducer from './slices/filterProductsSlice/filterProductsSlice'
+import sortReducer from './slices/sortSlice/sortSlice'
 
 const rootReducer = combineReducers({
   cart: cartReducer,

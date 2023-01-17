@@ -8,10 +8,50 @@ const SignForm = ({ signup }) => {
     formData, isError, signAction, formChangeHandler, isSignUpLoading, isSignInLoading,
   } = useForm(signup)
 
+  const renderFormText = () => {
+    if (signup) return 'Sign up'
+    return 'Login'
+  }
+
+  const renderGroupInput = () => {
+    if (signup) {
+      return (
+        <input
+          type="text"
+          id="signGroup"
+          placeholder="Group"
+          className={styles.formInput}
+          value={formData.group}
+          onChange={formChangeHandler}
+        />
+      )
+    }
+    return undefined
+  }
+
+  const renderFormFooter = () => {
+    if (signup) {
+      return (
+        <>
+          <span>Already registered?</span>
+          {' '}
+          <Link to="/signin">Login!</Link>
+        </>
+      )
+    }
+    return (
+      <>
+        <span>Not registered yet?</span>
+        {' '}
+        <Link to="/signup">Sign up!</Link>
+      </>
+    )
+  }
+
   return (
     <div className={styles.signFormWrapper}>
       <form className={styles.signFormContent}>
-        <h1>{signup ? 'Sign Up' : 'Login'}</h1>
+        <h1>{renderFormText()}</h1>
         <input
           type="email"
           id="signEmail"
@@ -28,39 +68,17 @@ const SignForm = ({ signup }) => {
           value={formData.password}
           onChange={formChangeHandler}
         />
-        {signup && (
-        <input
-          type="text"
-          id="signGroup"
-          placeholder="Group"
-          className={styles.formInput}
-          value={formData.group}
-          onChange={formChangeHandler}
-        />
-        )}
+        {renderGroupInput()}
         <button
           onClick={signAction}
           disabled={isSignInLoading || isSignUpLoading}
           className={styles.formBtn}
           type="submit"
         >
-          {signup ? 'Sign Up' : 'Login'}
+          {renderFormText()}
         </button>
         <hr />
-        {!signup ? (
-          <>
-            <span>Not registered yet?</span>
-            {' '}
-            <Link to="/signup">Sign up!</Link>
-          </>
-        )
-          : (
-            <>
-              <span>Already registered?</span>
-              {' '}
-              <Link to="/signin">Login!</Link>
-            </>
-          )}
+        {renderFormFooter()}
       </form>
     </div>
   )

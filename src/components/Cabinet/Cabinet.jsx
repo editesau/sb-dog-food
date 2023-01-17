@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import api from '../../tools/Api'
 import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
-import { clearUser } from '../../store/slices/userSlice'
+import { clearUser } from '../../store/slices/userSlice/userSlice'
 import styles from './Cabinet.module.scss'
 import { showError } from '../../tools/toaster'
 

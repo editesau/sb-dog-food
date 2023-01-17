@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { removeSelectedItems, setSelectAll } from '../../store/slices/cartSlice'
+import { removeSelectedItems, setSelectAll } from '../../store/slices/cartSlice/cartSlice'
 import styles from './CartSelectorHeader.module.scss'
 
 const CartSelectorHeader = () => {

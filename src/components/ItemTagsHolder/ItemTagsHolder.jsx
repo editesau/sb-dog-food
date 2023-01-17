@@ -3,10 +3,18 @@ import ItemTag from '../ItemTag/ItemTag'
 import styles from './ItemTagsHolder.module.scss'
 
 const ItemTagsHolder = ({ tags, productDiscount }) => {
+  const renderDiscountTag = () => {
+    if (productDiscount) return <ItemTag tag={`-${productDiscount}%`} />
+    return undefined
+  }
+  const renderTagsList = () => {
+    if (tags) return tags.map((tag, idx) => <ItemTag key={idx} tag={tag} />)
+    return undefined
+  }
   return (
     <div className={styles.itemTags}>
-      {productDiscount !== 0 && <ItemTag tag={`-${productDiscount}%`} />}
-      {tags && tags.map((tag, idx) => <ItemTag key={idx} tag={tag} />)}
+      {renderDiscountTag()}
+      {renderTagsList()}
     </div>
   )
 }

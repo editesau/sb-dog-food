@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
-import App from '../../App'
-import Cabinet from '../Cabinet/Cabinet'
-import Cart from '../Cart/Cart'
-import CatalogBlock from '../CatalogBlock/CatalogBlock'
-import SignForm from '../SignForm/SignForm'
-import NeedLoginMessage from '../NeedLoginMessage/NeedLoginMessage'
+import App from '../App'
+import Cabinet from '../components/Cabinet/Cabinet'
+import Cart from '../components/Cart/Cart'
+import CatalogBlock from '../components/CatalogBlock/CatalogBlock'
+import SignForm from '../components/SignForm/SignForm'
+import NeedLoginMessage from '../components/NeedLoginMessage/NeedLoginMessage'
 
 const router = createBrowserRouter([
   {

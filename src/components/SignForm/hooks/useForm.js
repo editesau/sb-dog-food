@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import api from '../../../tools/Api'
 import { showError, showSuccess } from '../../../tools/toaster'
 import { USER_STORAGE_KEY } from '../../../tools/storageKeys'
-import { setUser } from '../../../store/slices/userSlice'
+import { setUser } from '../../../store/slices/userSlice/userSlice'
 
 const useForm = (signup) => {
   const [formData, setFormData] = useState({ email: '', password: '', group: '' })

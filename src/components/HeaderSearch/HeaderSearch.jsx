@@ -3,7 +3,7 @@
 import { useDispatch } from 'react-redux'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { setFilter, clearFilter } from '../../store/slices/filterProductsSlice'
+import { setFilter, clearFilter } from '../../store/slices/filterProductsSlice/filterProductsSlice'
 import styles from './HeaderSearch.module.scss'
 
 const HeaderSearch = ({ auth }) => {

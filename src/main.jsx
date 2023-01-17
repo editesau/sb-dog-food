@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import router from './components/Router/Router'
+import router from './Router/Router'
 import store from './store'
 
 const queryClient = new QueryClient()
