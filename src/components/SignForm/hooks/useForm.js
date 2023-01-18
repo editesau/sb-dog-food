@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
-import { useDispatch } from 'react-redux'
 import api from '../../../tools/Api'
 import { showError, showSuccess } from '../../../tools/toaster'
-import { USER_STORAGE_KEY } from '../../../tools/storageKeys'
 import { setUser } from '../../../store/slices/userSlice/userSlice'
 
 const useForm = (signup) => {
   const [formData, setFormData] = useState({ email: '', password: '', group: '' })
   const [isError, setIsError] = useState({ email: false, password: false })
+  const token = useSelector((store) => store.user.token)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (window.localStorage.getItem(USER_STORAGE_KEY)) {
+    if (token) {
       showError('You are already authorized, logout and try again!')
       navigate('/')
     }

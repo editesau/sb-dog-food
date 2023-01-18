@@ -16,7 +16,7 @@ const CartItem = ({ product }) => {
       <div className={styles.cartItemMain}>
         <div className={styles.cartItemInfo}>
           <p>{product.name}</p>
-          <p>
+          <p className={`${product.stock <= cartItem.count && styles.outOfStock} `}>
             Stock:
             {' '}
             {product.stock}

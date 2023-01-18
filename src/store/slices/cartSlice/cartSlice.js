@@ -21,27 +21,23 @@ const cartSlice = createSlice({
           isSelected: false,
         })
       }
-      window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
     },
     increaseItemCount: (state, action) => {
       const index = state.findIndex((product) => product.id === action.payload)
       if (index !== -1) {
         state[index].count += 1
-        window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
       }
     },
     decreaseItemCount: (state, action) => {
       const index = state.findIndex((product) => product.id === action.payload)
       if (index !== -1) {
         state[index].count -= 1
-        window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
       }
     },
     toggleSelect: (state, action) => {
       const index = state.findIndex((product) => product.id === action.payload)
       if (index !== -1) {
         state[index].isSelected = !state[index].isSelected
-        window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
       }
     },
     setSelectAll: (state, action) => {
@@ -49,11 +45,13 @@ const cartSlice = createSlice({
     },
     removeItem: (state, action) => {
       state.splice(state.findIndex((item) => item.id === action.payload), 1)
-      window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
     },
     removeSelectedItems: (state) => {
       state = state.filter((item) => !item.isSelected)
-      window.localStorage.setItem(USER_CART_STORAGE_KEY, JSON.stringify(state))
+      return state
+    },
+    clearCart: (state) => {
+      state = []
       return state
     },
   },
@@ -62,5 +60,6 @@ const cartSlice = createSlice({
 export const {
   addItem, removeItem, increaseItemCount,
   decreaseItemCount, toggleSelect, setSelectAll, removeSelectedItems,
+  clearCart,
 } = cartSlice.actions
 export default cartSlice.reducer

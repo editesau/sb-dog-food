@@ -17,6 +17,7 @@
     position: absolute;
     top: 5px;
     left: 10px;
+
     &:checked {
       color: rgb(250, 229, 105);
     }
@@ -55,6 +56,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  .outOfStock {
+    color: red;
+    font-size: 14px;
+    transition: font-size .1s linear;
+  }
 }
 
 .cartItemActions {

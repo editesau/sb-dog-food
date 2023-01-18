@@ -7,6 +7,26 @@ class Api {
     this.headers = {
       'Content-Type': 'application/json',
     }
+    this.token = getUserTokenFromLS()
+    this.group = getUserGroupFromLS()
+    this.authInstance = this.token ? axios.create({
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }) : null
+  }
+
+  setToken = (token) => {
+    this.token = token
+    this.authInstance = this.token ? axios.create({
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+      },
+    }) : null
+  }
+
+  setGroup = (group) => {
+    this.group = group
   }
 
   signIn = (signInData) => {
@@ -18,28 +38,23 @@ class Api {
   }
 
   getAllProducts = (filter) => {
-    const token = getUserTokenFromLS()
     if (filter === '') {
-      return axios.get(`${this.baseUrl}/products`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+      return this.authInstance.get(`${this.baseUrl}/products`)
     }
-    return axios.get(`${this.baseUrl}/products/search?query=${filter}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+    return this.authInstance.get(`${this.baseUrl}/products/search?query=${filter}`)
   }
 
   getProductById = (id) => {
-    const token = getUserTokenFromLS()
-    return axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+    return this.authInstance.get(`${this.baseUrl}/products/${id}`)
   }
 
   getProductByIDs = (ids) => {
     if (!ids.length) return []
-    const token = getUserTokenFromLS()
-    return axios.all(ids.map((id) => axios.get(`${this.baseUrl}/products/${id}`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })))
+    return axios.all(ids.map((id) => this.authInstance.get(`${this.baseUrl}/products/${id}`)))
   }
 
   getUserInfo = () => {
-    const token = getUserTokenFromLS()
-    const group = getUserGroupFromLS()
-    return axios.get(`${this.baseUrl}/v2/${group}/users/me`, { headers: { ...this.headers, authorization: `Bearer ${token}` } })
+    return this.authInstance.get(`${this.baseUrl}/v2/${this.group}/users/me`)
   }
 }
 

@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
 import { USER_STORAGE_KEY } from '../../../tools/storageKeys'
+import api from '../../../tools/Api'
 
 let initialState = { token: null, id: null, group: null }
 const userLS = window.localStorage.getItem(USER_STORAGE_KEY)
@@ -14,7 +15,8 @@ const userSlice = createSlice({
     setUser: {
       reducer:
       (state, action) => {
-        window.localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(action.payload))
+        api.setToken(action.payload.token)
+        api.setGroup(action.payload.group)
         state = action.payload
         return state
       },
@@ -24,6 +26,9 @@ const userSlice = createSlice({
     },
     clearUser: (state) => {
       state = { token: null, id: null, group: null }
+      window.localStorage.clear()
+      api.setToken(undefined)
+      api.setGroup(undefined)
       return state
     },
 

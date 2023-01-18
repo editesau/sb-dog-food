@@ -3,6 +3,7 @@ import { getDiscountedPrice, getProductRate } from '../../tools/utils'
 import { addItem } from '../../store/slices/cartSlice/cartSlice'
 import ItemTagsHolder from '../ItemTagsHolder/ItemTagsHolder'
 import styles from './ItemCard.module.scss'
+import { showSuccess } from '../../tools/toaster'
 
 const ItemCard = ({ product }) => {
   const isDiscounted = product.discount !== 0
@@ -13,6 +14,7 @@ const ItemCard = ({ product }) => {
   const isOutOfStock = isInCart && cartItem.count >= product.stock
 
   const toCartHandler = () => {
+    showSuccess('Item was added to cart!')
     dispatch(addItem({ id: product._id, count: 1 }))
   }
 
