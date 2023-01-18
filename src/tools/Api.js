@@ -13,6 +13,7 @@ class Api {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
+      baseURL: this.baseUrl,
     }) : null
   }
 
@@ -22,6 +23,7 @@ class Api {
       headers: {
         Authorization: `Bearer ${this.token}`,
       },
+      baseURL: this.baseUrl,
     }) : null
   }
 
@@ -39,22 +41,22 @@ class Api {
 
   getAllProducts = (filter) => {
     if (filter === '') {
-      return this.authInstance.get(`${this.baseUrl}/products`)
+      return this.authInstance.get('/products')
     }
-    return this.authInstance.get(`${this.baseUrl}/products/search?query=${filter}`)
+    return this.authInstance.get(`/products/search?query=${filter}`)
   }
 
   getProductById = (id) => {
-    return this.authInstance.get(`${this.baseUrl}/products/${id}`)
+    return this.authInstance.get(`/products/${id}`)
   }
 
   getProductByIDs = (ids) => {
     if (!ids.length) return []
-    return axios.all(ids.map((id) => this.authInstance.get(`${this.baseUrl}/products/${id}`)))
+    return axios.all(ids.map((id) => this.authInstance.get(`/products/${id}`)))
   }
 
   getUserInfo = () => {
-    return this.authInstance.get(`${this.baseUrl}/v2/${this.group}/users/me`)
+    return this.authInstance.get(`/v2/${this.group}/users/me`)
   }
 }
 
