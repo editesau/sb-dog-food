@@ -55,6 +55,10 @@ class Api {
     return axios.all(ids.map((id) => this.authInstance.get(`/products/${id}`)))
   }
 
+  getProductReviews = (id) => {
+    return this.authInstance.get(`products/review/${id}`)
+  }
+
   getUserInfo = () => {
     return this.authInstance.get(`/v2/${this.group}/users/me`)
   }

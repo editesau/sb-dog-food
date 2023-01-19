@@ -1,0 +1,39 @@
+.itemDetailContainer {
+  max-width: 1030px;
+  margin: 0 auto;
+  padding: 15px 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+}
+
+
+.itemDetailCardContent {
+  display: flex;
+  padding: 15px;
+  gap: 20px;
+  width: 100%;
+  font-family: sans-serif;
+  background: #f2f2f2;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 4px #d0d0d0;
+}
+
+.itemDetailReviews {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  span {
+    display: block;
+  }
+}

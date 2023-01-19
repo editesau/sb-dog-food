@@ -1,19 +1,17 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import userReducer from './slices/userSlice/userSlice'
 import cartReducer from './slices/cartSlice/cartSlice'
 import filterReducer from './slices/filterProductsSlice/filterProductsSlice'
 import sortReducer from './slices/sortSlice/sortSlice'
 import { USER_CART_STORAGE_KEY, USER_STORAGE_KEY } from '../tools/storageKeys'
 
-const rootReducer = combineReducers({
-  cart: cartReducer,
-  user: userReducer,
-  filter: filterReducer,
-  sort: sortReducer,
-})
-
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    cart: cartReducer,
+    user: userReducer,
+    filter: filterReducer,
+    sort: sortReducer,
+  },
 })
 
 store.subscribe(() => {
