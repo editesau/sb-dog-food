@@ -1,7 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { Link } from 'react-router-dom'
 import useForm from './hooks/useForm'
 import styles from './SignForm.module.scss'
+import SignFormFooter from './components/SignFormFooter'
+import SignFormGroupInput from './components/SignFormGroupInput'
 
 const SignForm = ({ signup }) => {
   const {
@@ -11,41 +12,6 @@ const SignForm = ({ signup }) => {
   const renderFormText = () => {
     if (signup) return 'Sign up'
     return 'Login'
-  }
-
-  const renderGroupInput = () => {
-    if (signup) {
-      return (
-        <input
-          type="text"
-          id="signGroup"
-          placeholder="Group"
-          className={styles.formInput}
-          value={formData.group}
-          onChange={formChangeHandler}
-        />
-      )
-    }
-    return undefined
-  }
-
-  const renderFormFooter = () => {
-    if (signup) {
-      return (
-        <>
-          <span>Already registered?</span>
-          {' '}
-          <Link to="/signin">Login!</Link>
-        </>
-      )
-    }
-    return (
-      <>
-        <span>Not registered yet?</span>
-        {' '}
-        <Link to="/signup">Sign up!</Link>
-      </>
-    )
   }
 
   return (
@@ -68,7 +34,12 @@ const SignForm = ({ signup }) => {
           value={formData.password}
           onChange={formChangeHandler}
         />
-        {renderGroupInput()}
+        <SignFormGroupInput
+          signup={signup}
+          styles={styles.formInput}
+          group={formData.group}
+          formChangeHandler={formChangeHandler}
+        />
         <button
           onClick={signAction}
           disabled={isSignInLoading || isSignUpLoading}
@@ -78,7 +49,7 @@ const SignForm = ({ signup }) => {
           {renderFormText()}
         </button>
         <hr />
-        {renderFormFooter()}
+        <SignFormFooter signup={signup} />
       </form>
     </div>
   )
