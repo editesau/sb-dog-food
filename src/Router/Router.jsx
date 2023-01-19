@@ -5,7 +5,7 @@ import Cart from '../components/Cart/Cart'
 import CatalogBlock from '../components/CatalogBlock/CatalogBlock'
 import SignForm from '../components/SignForm/SignForm'
 import NeedLoginMessage from '../components/NeedLoginMessage/NeedLoginMessage'
-import ItemDetail from '../components/ItemDetail/ItemDetail'
+import ProductDetail from '../components/ProductDetail/ProductDetail'
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'products/:id',
-        element: <ItemDetail />,
+        element: <ProductDetail />,
       },
     ],
   },

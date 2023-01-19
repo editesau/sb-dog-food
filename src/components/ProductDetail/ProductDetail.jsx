@@ -1,12 +1,12 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import styles from './ItemDetail.module.scss'
+import styles from './ProductDetail.module.scss'
 import { ITEM_DETAIL_QUERY_KEY } from '../../tools/queryKeys'
 import api from '../../tools/Api'
 import Loader from '../Loader/Loader'
-import ItemDetailReviews from '../ItemDetailReviews/ItemDetailReviews'
+import ProductDetailReviews from '../ProductDetailReviews/ProductDetailReviews'
 
-const ItemDetail = () => {
+const ProductDetail = () => {
   const { id } = useParams()
   const { isLoading, data: product } = useQuery({
     queryKey: [ITEM_DETAIL_QUERY_KEY].concat(id),
@@ -14,10 +14,10 @@ const ItemDetail = () => {
   })
   if (isLoading) return <Loader />
   return (
-    <div className={styles.itemDetailContainer}>
-      <div className={styles.itemDetailCardContent}>
+    <div className={styles.ProductDetailContainer}>
+      <div className={styles.ProductDetailCardContent}>
         <img src={product.data.pictures} alt={product.data.name} />
-        <div className={styles.itemDetailCardInfo}>
+        <div className={styles.ProductDetailCardInfo}>
           <h3>{`${product.data.name}, ${product.data.wight}`}</h3>
           <p>{product.data.rate}</p>
           <p>{product.data.stock}</p>
@@ -26,11 +26,9 @@ const ItemDetail = () => {
           <p>{product.data.discount}</p>
         </div>
       </div>
-      <div className={styles.itemReviews}>
-        <ItemDetailReviews />
-      </div>
+      <ProductDetailReviews />
     </div>
   )
 }
 
-export default ItemDetail
+export default ProductDetail

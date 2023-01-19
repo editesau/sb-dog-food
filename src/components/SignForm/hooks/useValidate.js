@@ -8,7 +8,7 @@ const useValidate = (signup) => {
   }
   const validate = (formData) => {
     let isInvalidData = false
-    if (!/^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/.test(formData.email)) {
+    if (!/^[a-z0-9._]+@[a-z]+\.[a-z]{2,3}$/.test(formData.email)) {
       validationErrors.emailError = { isError: true, error: 'Email is not valid' }
       showError(validationErrors.emailError.error)
       isInvalidData = true

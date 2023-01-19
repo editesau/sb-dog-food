@@ -1,4 +1,4 @@
-.itemDetailContainer {
+.ProductDetailContainer {
   max-width: 1030px;
   margin: 0 auto;
   padding: 15px 15px;
@@ -17,7 +17,7 @@
 }
 
 
-.itemDetailCardContent {
+.ProductDetailCardContent {
   display: flex;
   padding: 15px;
   gap: 20px;
@@ -29,10 +29,11 @@
   box-shadow: 0 0 10px 4px #d0d0d0;
 }
 
-.itemDetailReviews {
+.ProductDetailReviews {
   width: 100%;
   display: flex;
   flex-direction: column;
+
   span {
     display: block;
   }
