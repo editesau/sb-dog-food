@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import api from '../../../tools/Api'
 import { showError, showSuccess } from '../../../tools/toaster'
 import { setUser } from '../../../store/slices/userSlice/userSlice'
+import useValidate from './useValidate'
 
 const useForm = (signup) => {
   const [formData, setFormData] = useState({ email: '', password: '', group: '' })
@@ -13,6 +14,7 @@ const useForm = (signup) => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const validate = useValidate(signup)
 
   useEffect(() => {
     if (token) {
@@ -86,6 +88,12 @@ const useForm = (signup) => {
 
   const signAction = async (event) => {
     event.preventDefault()
+    const { isInvalidData, errorStates } = validate(formData)
+    if (isInvalidData) {
+      setIsError(errorStates)
+      return
+    }
+
     if (signup) {
       signUp(formData)
     } else {

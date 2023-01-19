@@ -36,7 +36,7 @@ const SignForm = ({ signup }) => {
         />
         <SignFormGroupInput
           signup={signup}
-          styles={styles.formInput}
+          styles={`${styles.formInput} ${isError.group && styles.invalid}`}
           group={formData.group}
           formChangeHandler={formChangeHandler}
         />
