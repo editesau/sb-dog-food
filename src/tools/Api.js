@@ -12,6 +12,7 @@ class Api {
     this.authInstance = this.token ? axios.create({
       headers: {
         Authorization: `Bearer ${this.token}`,
+        'Content-Type': 'application/json',
       },
       baseURL: this.baseUrl,
     }) : null
@@ -22,6 +23,7 @@ class Api {
     this.authInstance = this.token ? axios.create({
       headers: {
         Authorization: `Bearer ${this.token}`,
+        'Content-Type': 'application/json',
       },
       baseURL: this.baseUrl,
     }) : null
@@ -56,11 +58,15 @@ class Api {
   }
 
   getProductReviews = (id) => {
-    return this.authInstance.get(`products/review/${id}`)
+    return this.authInstance.get(`/products/review/${id}`)
   }
 
   getUserInfo = () => {
     return this.authInstance.get(`/v2/${this.group}/users/me`)
+  }
+
+  addProductReview = (id, text, rating) => {
+    return this.authInstance.post(`/products/review/${id}`, JSON.stringify({ text, rating }))
   }
 }
 

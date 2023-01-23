@@ -1,12 +1,76 @@
-.itemReviewsContent {
+.productReviewsContent {
   display: flex;
+  flex-direction: column;
   margin-top: 20px;
   padding: 15px;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
   font-family: sans-serif;
   background: #f2f2f2;
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0 0 10px 4px #d0d0d0;
+
+}
+
+.productNewReview {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  font-family: sans-serif;
+}
+
+.productNewReviewInput {
+  width: 300px;
+  height: 35px;
+  border: 1px solid grey;
+  border-radius: 40px;
+  text-align: center;
+  font-size: 18px;
+
+  &::placeholder {
+    text-align: center;
+  }
+
+  &:focus {
+    &::placeholder {
+      color: transparent;
+      transition: color 0.1s linear;
+    }
+  }
+}
+
+button {
+  cursor: pointer;
+  width: 100px;
+  height: 40px;
+  background-color: rgb(250, 229, 105);
+  border: 0;
+  border-radius: 20px;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
+    transform: translateY(-0.25em);
+    transition: 0.25s;
+  }
+}
+
+.reviewRate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .reviewRateIcon {
+    text-align: center;
+    content: '5';
+    width: 36px;
+    height: 36px;
+    background-image: url('../../assets/rateStar.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 }

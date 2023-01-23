@@ -1,0 +1,32 @@
+.pagination {
+  margin-top: 15px;
+  display: inline-block;
+
+  span {
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: black;
+    float: left;
+    padding: 8px 8px;
+    text-decoration: none;
+    background-color: rgb(250, 229, 105);
+    border: 0;
+    border-radius: 20px;
+
+    &.active {
+      color: red;
+    }
+
+    &:hover {
+      color: red;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}

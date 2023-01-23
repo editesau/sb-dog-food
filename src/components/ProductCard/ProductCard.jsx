@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getDiscountedPrice, getProductRate } from '../../tools/utils'
+import { getProductRate } from '../../tools/utils'
 import { addItem } from '../../store/slices/cartSlice/cartSlice'
 import ProductTagsHolder from '../ProductTagsHolder/ProductTagsHolder'
 import styles from './ProductCard.module.scss'
 import { showSuccess } from '../../tools/toaster'
+import ProductPrice from '../ProductPrice/ProductPrice'
 
 const ProductCard = ({ product }) => {
   const isDiscounted = product.discount !== 0
@@ -32,20 +33,11 @@ const ProductCard = ({ product }) => {
         <i className={`${styles.favoriteIcon} ${styles.isFavorite}`} />
         <i className={styles.productRate}>{getProductRate(product)}</i>
         <ProductTagsHolder tags={product.tags} productDiscount={product.discount} />
-        <div className={styles.priceWrapper}>
-          <p className={`${styles.fullPrice} ${isDiscounted && styles.discounted}`}>
-            {product.price}
-            {' '}
-            ₽
-          </p>
-          {isDiscounted && (
-          <p className={styles.discountPrice}>
-            {getDiscountedPrice(product.price, product.discount)}
-            {' '}
-            ₽
-          </p>
-          )}
-        </div>
+        <ProductPrice
+          price={product.price}
+          discount={product.discount}
+          isDiscounted={isDiscounted}
+        />
         <div className={styles.cardBottom}>
           <p className={styles.wight}>{product.wight}</p>
           <h3 className={styles.productName}>{product.name}</h3>

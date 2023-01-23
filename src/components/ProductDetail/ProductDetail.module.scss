@@ -18,6 +18,7 @@
 
 
 .ProductDetailCardContent {
+  position: relative;
   display: flex;
   padding: 15px;
   gap: 20px;
@@ -37,4 +38,20 @@
   span {
     display: block;
   }
+}
+
+.productRate {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.productRateIcon {
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  background-image: url('../../assets/rateStar.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
