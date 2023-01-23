@@ -73,8 +73,8 @@ class Api {
     return this.authInstance.delete(`/products/review/${productId}/${reviewId}`)
   }
 
-  toggleProductLike = (id, isFavorite) => {
-    if (isFavorite) return this.authInstance.delete(`/products/likes/${id}`)
+  toggleProductLike = (id, isLiked) => {
+    if (isLiked) return this.authInstance.delete(`/products/likes/${id}`)
     return this.authInstance.put(`/products/likes/${id}`)
   }
 

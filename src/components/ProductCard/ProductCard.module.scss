@@ -29,20 +29,38 @@
     object-fit: cover;
   }
 
+  .likeIcon {
+    @include fa-icon-regular($fa-var-thumbs-up);
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    font-size: 24px;
+
+    &.isLiked,
+    &:hover {
+      @include fa-icon-solid($fa-var-thumbs-up);
+      color: blue;
+      transition: color 0.2s linear;
+    }
+    &.isLiked:hover{
+      color: white;
+    }
+  }
+
   .favoriteIcon {
     @include fa-icon-regular($fa-var-heart);
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 40px;
+    right: 5px;
     font-size: 24px;
 
-    &.isFavorite,
+    &.isLiked,
     &:hover {
       @include fa-icon-solid($fa-var-heart);
       color: red;
       transition: color 0.2s linear;
     }
-    &.isFavorite:hover{
+    &.isLiked:hover{
       color: white;
     }
   }
