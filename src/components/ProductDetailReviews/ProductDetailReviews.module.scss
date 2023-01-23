@@ -20,6 +20,22 @@
   align-items: center;
   margin-top: 15px;
   font-family: sans-serif;
+
+  button {
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(250, 229, 105);
+    border: 0;
+    border-radius: 20px;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
+      transform: translateY(-0.25em);
+      transition: 0.25s;
+    }
+  }
 }
 
 .productNewReviewInput {
@@ -39,22 +55,6 @@
       color: transparent;
       transition: color 0.1s linear;
     }
-  }
-}
-
-button {
-  cursor: pointer;
-  width: 100px;
-  height: 40px;
-  background-color: rgb(250, 229, 105);
-  border: 0;
-  border-radius: 20px;
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
-    transform: translateY(-0.25em);
-    transition: 0.25s;
   }
 }
 

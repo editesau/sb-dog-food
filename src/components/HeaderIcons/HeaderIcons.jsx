@@ -4,6 +4,7 @@ import styles from './headerIcons.module.scss'
 
 const HeaderIcons = ({ auth }) => {
   const cartCount = useSelector((store) => store.cart.length)
+  const favoriteCount = useSelector((store) => store.favorite.length)
   const token = useSelector((store) => store.user.token)
 
   return (
@@ -14,7 +15,9 @@ const HeaderIcons = ({ auth }) => {
           style={{ color: 'inherit', textDecoration: 'none' }}
           to="/favorites"
         >
-          <i className="fa fa-solid fa-heart" />
+          <i className="fa fa-solid fa-heart">
+            { favoriteCount !== 0 && <span className={styles.badge}>{favoriteCount}</span> }
+          </i>
         </Link>
         <Link
           style={{ color: 'inherit', textDecoration: 'none' }}

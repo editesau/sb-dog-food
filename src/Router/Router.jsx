@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'favorites',
-        element: <CatalogBlock favorite />,
+        element: <CatalogBlock />,
       },
     ],
   },

@@ -119,12 +119,10 @@
   &.btnOutOfStock {
     background-color: rgb(229, 50, 50)
   }
-
-}
-
-.raise:hover,
-.raise:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
-  transform: translateY(-0.25em);
-  transition: 0.25s;
+  &:hover,
+    &:focus {
+      box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
+      transform: translateY(-0.25em);
+      transition: 0.25s;
+    }
 }

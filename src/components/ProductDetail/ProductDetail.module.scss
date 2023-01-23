@@ -30,6 +30,12 @@
   box-shadow: 0 0 10px 4px #d0d0d0;
 }
 
+.ProductDetailCardInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .ProductDetailReviews {
   width: 100%;
   display: flex;
@@ -54,4 +60,39 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.buttonsBlock {
+  width: 100%;
+}
+
+.btnToCart,
+.btnToFavorite {
+  cursor: pointer;
+  width: 30%;
+  height: 30px;
+  margin-top: 10px;
+  background-color: rgb(250, 229, 105);
+  border: 0;
+  border-radius: 20px;
+
+  &.btnInCart,
+  &.btnIsFavorite {
+    background-color: rgb(7, 234, 75)
+  }
+
+  &.btnOutOfStock {
+    background-color: rgb(229, 50, 50)
+  }
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em #ffa260;
+    transform: translateY(-0.25em);
+    transition: 0.25s;
+  }
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
 }

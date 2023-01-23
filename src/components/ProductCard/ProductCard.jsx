@@ -39,7 +39,6 @@ const ProductCard = ({ product }) => {
           disabled={isOutOfStock}
           className={
           `${styles.btnToCart}
-          ${styles.raise}
           ${isInCart ? styles.btnInCart : undefined} 
           ${isOutOfStock ? styles.btnOutOfStock : undefined}`
         }
