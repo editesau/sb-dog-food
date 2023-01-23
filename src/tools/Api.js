@@ -69,6 +69,10 @@ class Api {
     return this.authInstance.post(`/products/review/${id}`, JSON.stringify({ text, rating }))
   }
 
+  deleteProductReview = (productId, reviewId) => {
+    return this.authInstance.delete(`/products/review/${productId}/${reviewId}`)
+  }
+
   toggleProductLike = (id, isFavorite) => {
     if (isFavorite) return this.authInstance.delete(`/products/likes/${id}`)
     return this.authInstance.put(`/products/likes/${id}`)

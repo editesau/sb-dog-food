@@ -33,3 +33,17 @@ hr {
   background-size: contain;
 }
 
+.reviewRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  
+  i:hover {
+    cursor: pointer;
+    color: red;
+    transition: color 0.1s linear;
+  }
+}
+
