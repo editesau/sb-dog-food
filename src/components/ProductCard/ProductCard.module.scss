@@ -54,7 +54,7 @@
     right: 5px;
     font-size: 24px;
 
-    &.isLiked,
+    &.isFavorite,
     &:hover {
       @include fa-icon-solid($fa-var-heart);
       color: red;

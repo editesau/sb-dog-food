@@ -1,6 +1,3 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { Link } from 'react-router-dom'
 import { getProductRate } from '../../tools/utils'
 import ProductTagsHolder from '../ProductTagsHolder/ProductTagsHolder'
@@ -18,14 +15,15 @@ const ProductCard = ({ product }) => {
     renderButtonText,
     renderDefaultImage,
     likeHandler,
+    favoriteHandler,
     toCartHandler,
   } = useProductCard(product)
   return (
     <Link to={`/products/${product._id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
       <div className={styles.cardWrapper}>
         <img src={product.pictures} onError={renderDefaultImage} alt={product.name} />
-        <i onClick={likeHandler} className={`${styles.likeIcon} ${isLiked && styles.isLiked}`} />
-        <i className={`${styles.favoriteIcon} ${isFavorite && styles.isFavorite}`} />
+        <i onClick={likeHandler} className={`${styles.likeIcon} ${isLiked && styles.isLiked}`} role="presentation" />
+        <i onClick={favoriteHandler} className={`${styles.favoriteIcon} ${isFavorite && styles.isFavorite}`} role="presentation" />
         <i className={styles.productRate}>{getProductRate(product)}</i>
         <ProductTagsHolder tags={product.tags} productDiscount={product.discount} />
         <ProductPrice

@@ -6,18 +6,20 @@ import { ITEMS_QUERY_KEY } from '../../../tools/queryKeys'
 import api from '../../../tools/Api'
 import { showError, showSuccess } from '../../../tools/toaster'
 import { addItem } from '../../../store/slices/cartSlice/cartSlice'
+import { addProductToFavorite, removeProductFromFavorite } from '../../../store/slices/favoriteSlice/favoriteSlice'
 
 const useProductCard = (product) => {
   const isDiscounted = product.discount !== 0
   const dispatch = useDispatch()
   const cart = useSelector((store) => store.cart)
   const userId = useSelector((store) => store.user.id)
+  const favoriteList = useSelector((store) => store.favorite)
   const cartItem = cart.find((item) => item.id === product._id)
   const isInCart = !!cartItem
   const isOutOfStock = isInCart && cartItem.count >= product.stock
   const isLiked = product.likes.findIndex((like) => like === userId) !== -1
   const filter = useSelector((store) => store.filter.value)
-  const isFavorite = false
+  const isFavorite = favoriteList.includes(product._id)
 
   const queryClient = useQueryClient()
   const navigate = useNavigate()
@@ -34,6 +36,17 @@ const useProductCard = (product) => {
   const likeHandler = (event) => {
     event.preventDefault()
     mutate()
+  }
+
+  const favoriteHandler = (event) => {
+    event.preventDefault()
+    if (isFavorite) {
+      dispatch(removeProductFromFavorite(product._id))
+      showSuccess('Product was removed from your favorite list')
+    } else {
+      dispatch(addProductToFavorite(product._id))
+      showSuccess('Product was added to your favorite list')
+    }
   }
   const toCartHandler = (event) => {
     event.preventDefault()
@@ -63,6 +76,7 @@ const useProductCard = (product) => {
     isOutOfStock,
     isInCart,
     likeHandler,
+    favoriteHandler,
     toCartHandler,
     renderButtonText,
     renderDefaultImage,
