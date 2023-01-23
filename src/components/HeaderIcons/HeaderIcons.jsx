@@ -12,7 +12,7 @@ const HeaderIcons = ({ auth }) => {
       <>
         <Link
           style={{ color: 'inherit', textDecoration: 'none' }}
-          to="/"
+          to="/favorites"
         >
           <i className="fa fa-solid fa-heart" />
         </Link>

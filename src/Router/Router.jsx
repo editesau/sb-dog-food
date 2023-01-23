@@ -40,6 +40,10 @@ const router = createBrowserRouter([
         path: 'products/:id',
         element: <ProductDetail />,
       },
+      {
+        path: 'favorites',
+        element: <CatalogBlock favorite />,
+      },
     ],
   },
 ])

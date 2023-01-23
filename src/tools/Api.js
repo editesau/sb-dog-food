@@ -68,6 +68,13 @@ class Api {
   addProductReview = (id, text, rating) => {
     return this.authInstance.post(`/products/review/${id}`, JSON.stringify({ text, rating }))
   }
+
+  toggleProductLike = (id, isFavorite) => {
+    if (isFavorite) return this.authInstance.delete(`/products/likes/${id}`)
+    return this.authInstance.put(`/products/likes/${id}`)
+  }
+
+  removeProductLike
 }
 
 const api = new Api('https://api.react-learning.ru')

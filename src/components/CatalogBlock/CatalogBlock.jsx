@@ -11,10 +11,11 @@ import OrderByMenu from '../OrderByMenu/OrderByMenu'
 import styles from './CatalogBlock.module.scss'
 import SearchResultInfo from '../SearchResultInfo/SearchResultInfo'
 
-const CatalogBlock = () => {
+const CatalogBlock = ({ favorite }) => {
   const filter = useSelector((store) => store.filter.value)
   const sortValue = useSelector((store) => store.sort.value)
   const token = useSelector((store) => store.user.token)
+  const userId = useSelector((store) => store.user.id)
 
   if (!token) return <Navigate to="/needlogin" />
 
@@ -45,6 +46,7 @@ const CatalogBlock = () => {
 
   let products = filter !== '' ? data.data : data.data.products
   products = sortProducts(products, sortValue)
+  if (favorite) products = products.filter((product) => product.likes.includes(userId))
   return (
     <>
       <SearchResultInfo productsCount={products.length} />
