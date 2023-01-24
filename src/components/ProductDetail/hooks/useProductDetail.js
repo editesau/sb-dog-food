@@ -15,6 +15,7 @@ const useProductDetail = () => {
   })
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const user = useSelector((store) => store.user.id)
   const cart = useSelector((store) => store.cart)
   const favoriteList = useSelector((store) => store.favorite)
   const isFavorite = favoriteList.includes(id)
@@ -23,8 +24,7 @@ const useProductDetail = () => {
   const renderFavoriteButtonText = () => {
     return isFavorite ? 'Unfavorite' : 'To favorite'
   }
-  const toCartHandler = (event) => {
-    event.preventDefault()
+  const toCartHandler = () => {
     if (isInCart) {
       navigate('/cart')
     } else {
@@ -32,8 +32,10 @@ const useProductDetail = () => {
       dispatch(addItem({ id, count: 1 }))
     }
   }
-  const favoriteHandler = (event) => {
-    event.preventDefault()
+  const editHandler = () => {
+    navigate('edit')
+  }
+  const favoriteHandler = () => {
     if (isFavorite) {
       dispatch(removeProductFromFavorite(id))
       showSuccess('Product was removed from your favorite list')
@@ -43,6 +45,7 @@ const useProductDetail = () => {
     }
   }
   return {
+    user,
     isLoading,
     product,
     isFavorite,
@@ -51,6 +54,7 @@ const useProductDetail = () => {
     renderFavoriteButtonText,
     toCartHandler,
     favoriteHandler,
+    editHandler,
   }
 }
 

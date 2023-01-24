@@ -2,41 +2,52 @@ import {
   ErrorMessage, Field, Form, Formik,
 } from 'formik'
 import * as Yup from 'yup'
-import { useMutation } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
-import styles from './NewProductForm.module.scss'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useNavigate, useParams } from 'react-router-dom'
+import styles from './EditProductForm.module.scss'
 import api from '../../tools/Api'
 import { showError, showSuccess } from '../../tools/toaster'
+import { ITEM_DETAIL_QUERY_KEY } from '../../tools/queryKeys'
+import Loader from '../Loader/Loader'
 
-const NewProductForm = () => {
+const EditProductForm = () => {
+  const { id } = useParams()
+
+  const { isLoading, data: product } = useQuery({
+    queryKey: [ITEM_DETAIL_QUERY_KEY].concat(id),
+    queryFn: () => api.getProductById(id),
+  })
+
   const navigate = useNavigate()
 
   const successHandler = (response) => {
-    showSuccess(`Product was successfuly created with id: ${response.data._id}`)
+    showSuccess('Product was successfuly edited')
     navigate(`/products/${response.data._id}`)
   }
   const errorHandler = (response) => {
     showError(response.response.data.message)
   }
-  const { mutate, isLoading: isCreating } = useMutation({
-    mutationFn: (productData) => api.createProduct(productData),
+  const { mutate, isLoading: isEditing } = useMutation({
+    mutationFn: (productData) => api.editProduct(productData, id),
     onSuccess: successHandler,
     onError: errorHandler,
   })
 
+  if (isLoading) return <Loader />
+
   const initialValues = {
-    name: '',
-    pictures: '',
-    price: '',
-    discount: '',
-    stock: '',
-    wight: '',
-    description: '',
+    name: product.data.name,
+    pictures: product.data.pictures,
+    price: product.data.price,
+    discount: product.data.discount,
+    stock: product.data.stock,
+    wight: product.data.wight,
+    description: product.data.description,
   }
 
   return (
     <div className={styles.formWrapper}>
-      <h2>Create product</h2>
+      <h2>Edit product</h2>
       <Formik
         initialValues={initialValues}
         validationSchema={Yup.object(
@@ -91,10 +102,10 @@ const NewProductForm = () => {
           <Field name="description" placeholder="Description" type="textarea" />
           <ErrorMessage className={styles.error} component="span" name="description" />
 
-          <button disabled={isCreating} type="submit" className={styles.formBtn}>Create</button>
+          <button disabled={isEditing} type="submit" className={styles.formBtn}>Save</button>
         </Form>
       </Formik>
     </div>
   )
 }
-export default NewProductForm
+export default EditProductForm

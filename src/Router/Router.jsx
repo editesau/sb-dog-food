@@ -7,6 +7,7 @@ import SignForm from '../components/SignForm/SignForm'
 import NeedLoginMessage from '../components/NeedLoginMessage/NeedLoginMessage'
 import ProductDetail from '../components/ProductDetail/ProductDetail'
 import NewProductForm from '../components/NewProductForm/NewProductForm'
+import EditProductForm from '../components/EditProductForm/EditProductForm'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: 'newproduct',
         element: <NewProductForm />,
+      },
+      {
+        path: 'products/:id/edit',
+        element: <EditProductForm />,
       },
     ],
   },

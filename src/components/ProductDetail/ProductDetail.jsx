@@ -8,6 +8,7 @@ import useProductDetail from './hooks/useProductDetail'
 
 const ProductDetail = () => {
   const {
+    user,
     isLoading,
     product,
     isFavorite,
@@ -16,6 +17,7 @@ const ProductDetail = () => {
     renderFavoriteButtonText,
     toCartHandler,
     favoriteHandler,
+    editHandler,
   } = useProductDetail()
 
   if (isLoading) return <Loader />
@@ -73,6 +75,14 @@ const ProductDetail = () => {
               type="button"
             >
               {renderFavoriteButtonText()}
+            </button>
+            <button
+              disabled={user !== product.data.author._id}
+              onClick={editHandler}
+              className={`${styles.btnEdit}`}
+              type="button"
+            >
+              Edit
             </button>
           </div>
           <ProductTagsHolder tags={product.data.tags} productDiscount={product.data.discount} />

@@ -81,6 +81,10 @@ class Api {
   createProduct = (productData) => {
     return this.authInstance.post('/products', JSON.stringify(productData))
   }
+
+  editProduct = (productData, id) => {
+    return this.authInstance.patch(`/products/${id}`, JSON.stringify(productData))
+  }
 }
 
 const api = new Api('https://api.react-learning.ru')
