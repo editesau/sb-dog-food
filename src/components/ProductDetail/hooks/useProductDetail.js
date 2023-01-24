@@ -3,17 +3,21 @@ import { useQuery } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { ITEM_DETAIL_QUERY_KEY } from '../../../tools/queryKeys'
 import api from '../../../tools/Api'
-import { showSuccess } from '../../../tools/toaster'
+import { showError, showSuccess } from '../../../tools/toaster'
 import { addItem } from '../../../store/slices/cartSlice/cartSlice'
 import { addProductToFavorite, removeProductFromFavorite } from '../../../store/slices/favoriteSlice/favoriteSlice'
 
 const useProductDetail = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const { isLoading, data: product } = useQuery({
     queryKey: [ITEM_DETAIL_QUERY_KEY].concat(id),
     queryFn: () => api.getProductById(id),
+    onError: (response) => {
+      showError(response.response.data.message)
+      navigate('/products')
+    },
   })
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector((store) => store.user.id)
   const cart = useSelector((store) => store.cart)
