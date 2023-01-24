@@ -8,7 +8,6 @@ import styles from './HeaderSearch.module.scss'
 
 const HeaderSearch = ({ auth }) => {
   const [inputValue, setInputValue] = useState('')
-
   const dispatch = useDispatch()
   const location = useLocation()
 
@@ -22,7 +21,8 @@ const HeaderSearch = ({ auth }) => {
     }
   }
 
-  const setReduxState = (value) => dispatch(setFilter(value))
+  const setReduxState = (itemValue) => dispatch(setFilter(itemValue))
+
   const debounced = useMemo(() => debounce(setReduxState), [])
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const HeaderSearch = ({ auth }) => {
     dispatch(clearFilter())
   }
   if (!auth) return undefined
-  if (location.pathname !== '/' && location.pathname !== '/favorites') return undefined
+  if (location.pathname !== '/products') return undefined
   return (
     <div className={styles.searchWrapper}>
       <input className={styles.headerSearchInput} placeholder="Search" value={inputValue} onChange={searchHandler} />

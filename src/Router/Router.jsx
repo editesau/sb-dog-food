@@ -8,6 +8,7 @@ import NeedLoginMessage from '../components/NeedLoginMessage/NeedLoginMessage'
 import ProductDetail from '../components/ProductDetail/ProductDetail'
 import NewProductForm from '../components/NewProductForm/NewProductForm'
 import EditProductForm from '../components/EditProductForm/EditProductForm'
+import FavoriteBlock from '../components/FavoriteBlock/FavoriteBlock'
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/',
+        path: 'products',
         element: <CatalogBlock />,
       },
       {
@@ -44,10 +45,10 @@ const router = createBrowserRouter([
       },
       {
         path: 'favorites',
-        element: <CatalogBlock />,
+        element: <FavoriteBlock />,
       },
       {
-        path: 'newproduct',
+        path: 'products/create',
         element: <NewProductForm />,
       },
       {

@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import api from '../../tools/Api'
 import { ITEMS_QUERY_KEY } from '../../tools/queryKeys'
@@ -14,9 +13,6 @@ import SearchResultInfo from '../SearchResultInfo/SearchResultInfo'
 const CatalogBlock = () => {
   const filter = useSelector((store) => store.filter.value)
   const sortValue = useSelector((store) => store.sort.value)
-  const token = useSelector((store) => store.user.token)
-
-  if (!token) return <Navigate to="/needlogin" />
 
   const {
     isLoading, isFetching, isError, error, refetch, data,

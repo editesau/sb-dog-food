@@ -13,7 +13,7 @@ const HeaderIcons = ({ auth }) => {
         <>
           <Link
             style={{ color: 'inherit', textDecoration: 'none' }}
-            to="/newproduct"
+            to="/products/create"
           >
             <i className="fa fa-solid fa-file-circle-plus" />
           </Link>
