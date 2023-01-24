@@ -6,6 +6,7 @@ import CatalogBlock from '../components/CatalogBlock/CatalogBlock'
 import SignForm from '../components/SignForm/SignForm'
 import NeedLoginMessage from '../components/NeedLoginMessage/NeedLoginMessage'
 import ProductDetail from '../components/ProductDetail/ProductDetail'
+import NewProductForm from '../components/NewProductForm/NewProductForm'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'favorites',
         element: <CatalogBlock />,
+      },
+      {
+        path: 'newproduct',
+        element: <NewProductForm />,
       },
     ],
   },

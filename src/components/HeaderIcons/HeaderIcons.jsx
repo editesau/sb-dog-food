@@ -10,24 +10,30 @@ const HeaderIcons = ({ auth }) => {
   return (
     <div className={styles.headerIcons}>
       {auth && (
-      <>
-        <Link
-          style={{ color: 'inherit', textDecoration: 'none' }}
-          to="/favorites"
-        >
-          <i className="fa fa-solid fa-heart">
-            { favoriteCount !== 0 && <span className={styles.badge}>{favoriteCount}</span> }
-          </i>
-        </Link>
-        <Link
-          style={{ color: 'inherit', textDecoration: 'none' }}
-          to="/cart"
-        >
-          <i className="fa fa-solid fa-cart-shopping">
-            { cartCount !== 0 && <span className={styles.badge}>{cartCount}</span> }
-          </i>
-        </Link>
-      </>
+        <>
+          <Link
+            style={{ color: 'inherit', textDecoration: 'none' }}
+            to="/newproduct"
+          >
+            <i className="fa fa-solid fa-file-circle-plus" />
+          </Link>
+          <Link
+            style={{ color: 'inherit', textDecoration: 'none' }}
+            to="/favorites"
+          >
+            <i className="fa fa-solid fa-heart">
+              {favoriteCount !== 0 && <span className={styles.badge}>{favoriteCount}</span>}
+            </i>
+          </Link>
+          <Link
+            style={{ color: 'inherit', textDecoration: 'none' }}
+            to="/cart"
+          >
+            <i className="fa fa-solid fa-cart-shopping">
+              {cartCount !== 0 && <span className={styles.badge}>{cartCount}</span>}
+            </i>
+          </Link>
+        </>
       )}
 
       <Link style={{ color: 'inherit', textDecoration: 'none' }} to={token ? '/cabinet' : '/signin'}><i className="fa fa-solid fa-user" /></Link>

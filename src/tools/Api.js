@@ -78,7 +78,9 @@ class Api {
     return this.authInstance.put(`/products/likes/${id}`)
   }
 
-  removeProductLike
+  createProduct = (productData) => {
+    return this.authInstance.post('/products', JSON.stringify(productData))
+  }
 }
 
 const api = new Api('https://api.react-learning.ru')
