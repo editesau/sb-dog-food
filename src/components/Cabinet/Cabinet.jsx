@@ -8,6 +8,7 @@ import { clearUser } from '../../store/slices/userSlice/userSlice'
 import { clearCart } from '../../store/slices/cartSlice/cartSlice'
 import styles from './Cabinet.module.scss'
 import { showError } from '../../tools/toaster'
+import { clearFavoriteList } from '../../store/slices/favoriteSlice/favoriteSlice'
 
 const Cabinet = () => {
   const navigate = useNavigate()
@@ -22,6 +23,7 @@ const Cabinet = () => {
   const logoutHandler = () => {
     dispatch(clearUser())
     dispatch(clearCart())
+    dispatch(clearFavoriteList())
     navigate('/signin')
   }
 
