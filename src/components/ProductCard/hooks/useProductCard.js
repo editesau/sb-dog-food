@@ -23,6 +23,7 @@ const useProductCard = (product) => {
 
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+
   const { mutate } = useMutation({
     mutationFn: () => api.toggleProductLike(product._id, isLiked),
     onSuccess: () => {

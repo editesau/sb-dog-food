@@ -2,36 +2,17 @@ import {
   ErrorMessage, Field, Form, Formik,
 } from 'formik'
 import * as Yup from 'yup'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useNavigate, useParams } from 'react-router-dom'
 import styles from './EditProductForm.module.scss'
-import api from '../../tools/Api'
-import { showError, showSuccess } from '../../tools/toaster'
-import { ITEM_DETAIL_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
+import useEditProductForm from './hooks/useEditProductForm'
 
 const EditProductForm = () => {
-  const { id } = useParams()
-
-  const { isLoading, data: product } = useQuery({
-    queryKey: [ITEM_DETAIL_QUERY_KEY].concat(id),
-    queryFn: () => api.getProductById(id),
-  })
-
-  const navigate = useNavigate()
-
-  const successHandler = (response) => {
-    showSuccess('Product was successfuly edited')
-    navigate(`/products/${response.data._id}`)
-  }
-  const errorHandler = (response) => {
-    showError(response.response.data.message)
-  }
-  const { mutate, isLoading: isEditing } = useMutation({
-    mutationFn: (productData) => api.editProduct(productData, id),
-    onSuccess: successHandler,
-    onError: errorHandler,
-  })
+  const {
+    isLoading,
+    isEditing,
+    product,
+    mutate,
+  } = useEditProductForm()
 
   if (isLoading) return <Loader />
 

@@ -39,7 +39,9 @@ const HeaderSearch = ({ auth }) => {
     setInputValue('')
     dispatch(clearFilter())
   }
+
   if (!auth) return undefined
+
   if (location.pathname !== '/products') return undefined
   return (
     <div className={styles.searchWrapper}>

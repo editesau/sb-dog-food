@@ -38,14 +38,13 @@ const ProductCard = ({ product }) => {
         <button
           disabled={isOutOfStock}
           className={
-          `${styles.btnToCart}
-          ${isInCart ? styles.btnInCart : undefined} 
-          ${isOutOfStock ? styles.btnOutOfStock : undefined}`
-        }
+            `${styles.btnToCart}
+             ${isInCart ? styles.btnInCart : undefined} 
+             ${isOutOfStock ? styles.btnOutOfStock : undefined}`
+          }
           type="button"
           onClick={toCartHandler}
         >
-          {}
           {renderButtonText()}
         </button>
       </div>

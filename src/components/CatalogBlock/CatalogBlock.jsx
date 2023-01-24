@@ -32,9 +32,8 @@ const CatalogBlock = () => {
     const { status, message } = errorHandler(error)
     showError(`${status} ${message}`)
     return (
-      <div className="container d-flex justify-content-center">
-        {/* TODO style error page */}
-        <button className="btn btn-success mt-5" type="button" onClick={refetch}>Reload</button>
+      <div className={styles.container}>
+        <button type="button" onClick={refetch}>Reload</button>
       </div>
     )
   }
@@ -47,8 +46,7 @@ const CatalogBlock = () => {
       {renderOrderByMenu(products)}
       <div className={styles.container}>
         {products.map((product) => product.available
-        // eslint-disable-next-line no-underscore-dangle
-        && <ProductCard key={product._id} product={product} />)}
+          && <ProductCard key={product._id} product={product} />)}
       </div>
     </>
   )

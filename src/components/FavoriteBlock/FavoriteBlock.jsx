@@ -33,7 +33,6 @@ const FavoriteBlock = () => {
   return (
     <div className={styles.container}>
       {data.map((product) => product.data.available
-        // eslint-disable-next-line no-underscore-dangle
         && <ProductCard key={product.data._id} product={product.data} />)}
     </div>
   )

@@ -1,19 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate, Navigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import api from '../../tools/Api'
 import { USER_INFO_QUERY_KEY } from '../../tools/queryKeys'
 import Loader from '../Loader/Loader'
 import { clearUser } from '../../store/slices/userSlice/userSlice'
 import { clearCart } from '../../store/slices/cartSlice/cartSlice'
 import styles from './Cabinet.module.scss'
-import { showError } from '../../tools/toaster'
 import { clearFavoriteList } from '../../store/slices/favoriteSlice/favoriteSlice'
 
 const Cabinet = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const token = useSelector((store) => store.user.token)
 
   const { isLoading, data: user } = useQuery({
     queryKey: [USER_INFO_QUERY_KEY],
@@ -25,11 +23,6 @@ const Cabinet = () => {
     dispatch(clearCart())
     dispatch(clearFavoriteList())
     navigate('/signin')
-  }
-
-  if (!token) {
-    showError('Need login')
-    return <Navigate to="/signin" />
   }
 
   if (isLoading) return <Loader />

@@ -20,6 +20,7 @@ const Cart = () => {
   })
 
   if (isLoading) return <Loader />
+
   if (!data.length) {
     return (
       <div className={styles.cartEmptyWrapper}>
