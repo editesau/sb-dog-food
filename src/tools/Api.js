@@ -85,6 +85,10 @@ class Api {
   editProduct = (productData, id) => {
     return this.authInstance.patch(`/products/${id}`, JSON.stringify(productData))
   }
+
+  deleteProduct = (id) => {
+    return this.authInstance.delete(`/products/${id}`)
+  }
 }
 
 const api = new Api('https://api.react-learning.ru')

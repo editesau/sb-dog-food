@@ -18,6 +18,8 @@ const ProductDetail = () => {
     toCartHandler,
     favoriteHandler,
     editHandler,
+    removeHandler,
+    isDeleting,
   } = useProductDetail()
 
   if (isLoading) return <Loader />
@@ -76,14 +78,25 @@ const ProductDetail = () => {
             >
               {renderFavoriteButtonText()}
             </button>
-            <button
-              disabled={user !== product.data.author._id}
-              onClick={editHandler}
-              className={`${styles.btnEdit}`}
-              type="button"
-            >
-              Edit
-            </button>
+            {user === product.data.author._id && (
+              <div>
+                <button
+                  onClick={editHandler}
+                  className={`${styles.btnEdit}`}
+                  type="button"
+                >
+                  Edit
+                </button>
+                <button
+                  disabled={isDeleting}
+                  onClick={removeHandler}
+                  className={`${styles.btnRemove}`}
+                  type="button"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
           <ProductTagsHolder tags={product.data.tags} productDiscount={product.data.discount} />
         </div>

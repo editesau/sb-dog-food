@@ -68,7 +68,8 @@
 
 .btnToCart,
 .btnEdit,
-.btnToFavorite {
+.btnToFavorite,
+.btnRemove {
   cursor: pointer;
   width: 30%;
   height: 30px;
@@ -96,4 +97,8 @@
   &:not(:last-child) {
     margin-right: 10px;
   }
+}
+
+.btnRemove {
+  background-color: red;
 }

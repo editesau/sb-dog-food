@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation } from '@tanstack/react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { ITEM_DETAIL_QUERY_KEY } from '../../../tools/queryKeys'
 import api from '../../../tools/Api'
@@ -18,6 +18,17 @@ const useProductDetail = () => {
       navigate('/products')
     },
   })
+
+  const { mutate: deleteMutation, isLoading: isDeleting } = useMutation({
+    mutationFn: () => api.deleteProduct(id),
+    onSuccess: () => {
+      showSuccess('Product was deleted')
+      navigate('/products')
+    },
+    onError: (e) => {
+      showError(e.data.message)
+    },
+  })
   const dispatch = useDispatch()
   const user = useSelector((store) => store.user.id)
   const cart = useSelector((store) => store.cart)
@@ -25,9 +36,11 @@ const useProductDetail = () => {
   const isFavorite = favoriteList.includes(id)
   const cartItem = cart.find((item) => item.id === id)
   const isInCart = !!cartItem
+
   const renderFavoriteButtonText = () => {
     return isFavorite ? 'Unfavorite' : 'To favorite'
   }
+
   const toCartHandler = () => {
     if (isInCart) {
       navigate('/cart')
@@ -36,9 +49,15 @@ const useProductDetail = () => {
       dispatch(addItem({ id, count: 1 }))
     }
   }
+
   const editHandler = () => {
     navigate('edit')
   }
+
+  const removeHandler = () => {
+    deleteMutation()
+  }
+
   const favoriteHandler = () => {
     if (isFavorite) {
       dispatch(removeProductFromFavorite(id))
@@ -48,6 +67,7 @@ const useProductDetail = () => {
       showSuccess('Product was added to your favorite list')
     }
   }
+
   return {
     user,
     isLoading,
@@ -59,6 +79,8 @@ const useProductDetail = () => {
     toCartHandler,
     favoriteHandler,
     editHandler,
+    removeHandler,
+    isDeleting,
   }
 }
 
