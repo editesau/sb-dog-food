@@ -47,10 +47,10 @@ const useForm = (signup) => {
   const { mutate: signIn, isLoading: isSignInLoading } = useMutation({
     mutationFn: (credentials) => api.signIn(credentials),
     onSuccess: (response) => {
-      showSuccess(`Sign in successfull! Welcome, ${response.data.data.name}`)
       setFormData({ email: '', password: '', group: '' })
       dispatch(setUser(response.data.token, response.data.data._id, response.data.data.group))
-      navigate('/')
+      showSuccess(`Sign in successfull! Welcome, ${response.data.data.name}`)
+      navigate('/products')
     },
     onError: (e) => {
       errorHandler(e)
