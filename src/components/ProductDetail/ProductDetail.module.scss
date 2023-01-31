@@ -84,7 +84,8 @@
   }
 
   &.btnOutOfStock {
-    background-color: rgb(229, 50, 50)
+    background-color: rgb(229, 50, 50);
+    color: white;
   }
 
   &:hover,
@@ -97,8 +98,4 @@
   &:not(:last-child) {
     margin-right: 10px;
   }
-}
-
-.btnRemove {
-  background-color: red;
 }

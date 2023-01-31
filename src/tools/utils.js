@@ -25,6 +25,7 @@ const getUserGroupFromLS = () => {
   if (userLS) return JSON.parse(userLS).group
   return null
 }
+
 const getDiscountedPrice = (price, discount) => {
   return Math.round(price * ((100 - discount) / 100))
 }

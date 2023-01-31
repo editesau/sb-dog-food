@@ -14,6 +14,8 @@ class Api {
         Authorization: `Bearer ${this.token}`,
         'Content-Type': 'application/json',
       },
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
       baseURL: this.baseUrl,
     }) : null
   }
@@ -25,6 +27,8 @@ class Api {
         Authorization: `Bearer ${this.token}`,
         'Content-Type': 'application/json',
       },
+      maxContentLength: Infinity,
+      maxBodyLength: Infinity,
       baseURL: this.baseUrl,
     }) : null
   }
