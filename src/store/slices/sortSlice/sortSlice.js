@@ -1,9 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit'
-import { sortValues } from './sortValues'
 
 const initialState = {
-  value: sortValues.POPULAR,
+  value: '',
 }
 
 const sortSlice = createSlice({
