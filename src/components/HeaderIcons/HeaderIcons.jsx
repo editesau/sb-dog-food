@@ -8,7 +8,7 @@ const HeaderIcons = ({ auth }) => {
   const token = useSelector((store) => store.user.token)
   const location = useLocation()
   const page = location.pathname
-  console.log(page)
+
   return (
     <div className={styles.headerIcons}>
       {auth && (
